@@ -43,8 +43,9 @@ public class StpInterfaceImpl implements StpInterface {
         Set<Integer> rIdsSet = new HashSet<>(rIdsList);
         List<String> menuCode = new ArrayList<String>();
         for (Integer rId : rIdsSet) {
-            // MenuRole行ID
             try {
+                // MenuRole行ID
+                //todo:改一下，这里的menuRole是一个集合，角色对应多个菜单
                 MenuRole menuRole = menuRoleService.getMenuRoleByRId(rId);
                 if (menuRole != null) {
                     Integer mid = menuRole.getMId();

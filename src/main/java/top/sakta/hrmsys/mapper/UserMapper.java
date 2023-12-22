@@ -21,6 +21,9 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE uID = #{userId}")
     User getUserById(String userId);
 
+    @Select("SELECT * FROM user WHERE uName LIKE '%${userName}%'")
+    List<User> getUserByName(String userName);
+
     @Select("SELECT * FROM user")
     List<User> getAllUsers();
 
