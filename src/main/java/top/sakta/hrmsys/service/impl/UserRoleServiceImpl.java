@@ -26,6 +26,11 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
+    public UserRole getUserRoleByUIDAndRID(String uID, Integer rID) {
+        return userRoleMapper.getUserRoleByUIDAndRID(uID, rID);
+    }
+
+    @Override
     public List<String> getAllUIDByRID(Integer rID) {
         return userRoleMapper.getAllUIDByRID(rID);
     }

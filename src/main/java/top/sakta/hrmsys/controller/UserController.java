@@ -83,7 +83,11 @@ public class UserController {
     @Operation(summary = "更新用户接口",description = "json数据，看用户实体类，全属性必须")
     @PutMapping("/update")
     public SaResult updateUser(@RequestBody User user) {
-        int result = userService.updateUser(user);
+        User newUser = new User();
+        newUser.setUID(user.getUID());
+        newUser.setUName(user.getUName());
+        newUser.setUPassword(Md5Util.getMD5(user.getUPassword()));
+        int result = userService.updateUser(newUser);
         if(result == 0){
             return SaResult.error("更新失败");
         }

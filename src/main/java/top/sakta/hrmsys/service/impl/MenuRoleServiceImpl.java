@@ -20,7 +20,12 @@ public class MenuRoleServiceImpl implements MenuRoleService {
     }
 
     @Override
-    public MenuRole getMenuRoleByRId(Integer roleId) {
+    public MenuRole getMenuRoleByMidAndRId(Integer menuId, Integer roleId) {
+        return menuRoleMapper.getMenuRoleByMRId(menuId, roleId);
+    }
+
+    @Override
+    public List<MenuRole> getMenuRoleByRId(Integer roleId) {
         return menuRoleMapper.getMenuRoleByRId(roleId);
     }
 

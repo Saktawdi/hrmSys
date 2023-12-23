@@ -2,6 +2,7 @@ package top.sakta.hrmsys.service.impl;
 
 import cn.dev33.satoken.stp.StpInterface;
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.sakta.hrmsys.domain.MenuRole;
@@ -17,9 +18,8 @@ import java.util.Set;
  * @version 0.0.1*
  * @date 2023年12月22日*
  */
-//TODO:Test
 @Component    // 保证此类被 SpringBoot 扫描，完成 Sa-Token 的自定义权限验证扩展
-@Log
+@Slf4j
 public class StpInterfaceImpl implements StpInterface {
 
     @Autowired
@@ -45,20 +45,21 @@ public class StpInterfaceImpl implements StpInterface {
         for (Integer rId : rIdsSet) {
             try {
                 // MenuRole行ID
-                //todo:改一下，这里的menuRole是一个集合，角色对应多个菜单
-                MenuRole menuRole = menuRoleService.getMenuRoleByRId(rId);
-                if (menuRole != null) {
-                    Integer mid = menuRole.getMId();
-                    if (mid != null) {
-                        menuCode.add(menuService.getMenuById(mid).getMCode());
-                    } else {
-                        log.info("MenuRole行ID为空");
+                List<MenuRole> menuRoleList = menuRoleService.getMenuRoleByRId(rId);
+                if (menuRoleList != null) {
+                    for (MenuRole menuRole : menuRoleList) {
+                        Integer mid = menuRole.getMId();
+                        if (mid != null) {
+                            menuCode.add(menuService.getMenuById(mid).getMCode());
+                        } else {
+                            log.info("MenuRole行ID为空");
+                        }
                     }
                 } else {
                     log.info("MenuRole为空");
                 }
             } catch (NullPointerException e) {
-                log.warning("出现空指针异常");
+                log.error("出现空指针异常");
             }
         }
         return menuCode;
