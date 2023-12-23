@@ -157,7 +157,7 @@ INSERT INTO `role` VALUES ('3', 'test', '测试人员');
 DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary` (
   `sID` int(3) NOT NULL COMMENT '标准编号',
-  `sName` double DEFAULT NULL COMMENT '标准名',
+  `sName` varchar(200) DEFAULT NULL COMMENT '标准名',
   `sBasic` double DEFAULT NULL COMMENT '基本工资',
   `sTransport` double DEFAULT NULL COMMENT '交通补助',
   `sLunch` double DEFAULT NULL COMMENT '午餐补助',
@@ -165,10 +165,10 @@ CREATE TABLE `salary` (
   `sPension` double DEFAULT NULL COMMENT '养老保险',
   `sMedical` double DEFAULT NULL COMMENT '医疗保险',
   `sUnemployment` double DEFAULT NULL COMMENT '失业保险',
-  `sRecorder` int(12) DEFAULT NULL COMMENT '记录人',
+  `sRecorder` varchar(200) DEFAULT NULL COMMENT '记录人',
   `sRecordDate` date DEFAULT NULL COMMENT '记录时间',
   `sMaker` varchar(50) DEFAULT NULL COMMENT '制定人',
-  `sStatus` int(3) DEFAULT NULL COMMENT '标准状态',
+  `sStatus` varchar(200) DEFAULT NULL COMMENT '标准状态',
   PRIMARY KEY (`sID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
