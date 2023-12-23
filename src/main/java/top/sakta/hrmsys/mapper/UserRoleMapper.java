@@ -22,6 +22,10 @@ public interface UserRoleMapper {
     @Select("select * from user_role")
     List<UserRole> getAllUserRoles();
 
+    //找到对应uID和rID的用户角色
+    @Select("select * from user_role where uID = #{uID} and rID = #{rID}")
+    UserRole getUserRoleByUIDAndRID(String uID, Integer rID);
+
     //找到对应角色ID下的所有用户ID
     @Select("select uID from user_role where rID = #{rID}")
     List<String> getAllUIDByRID(Integer rID);

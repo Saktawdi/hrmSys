@@ -11,8 +11,12 @@ public interface MenuRoleMapper {
     @Select("SELECT * FROM menu_role WHERE id = #{id}")
     MenuRole getMenuRoleById(Integer id);
 
+    //根据mid和rid查询
+    @Select("SELECT * FROM menu_role WHERE mId = #{menuId} AND rId = #{roleId}")
+    MenuRole getMenuRoleByMRId(Integer menuId, Integer roleId);
+
     @Select("SELECT * FROM menu_role WHERE rID = #{roleId}")
-    MenuRole getMenuRoleByRId(Integer roleId);
+    List<MenuRole> getMenuRoleByRId(Integer roleId);
 
     @Select("SELECT * FROM menu_role")
     List<MenuRole> getAllMenuRoles();

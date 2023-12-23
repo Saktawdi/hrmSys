@@ -8,7 +8,10 @@ import java.util.List;
 public interface MenuRoleService {
     MenuRole getMenuRoleById(Integer id);
 
-    MenuRole getMenuRoleByRId(Integer roleId);
+    //根据mid和rid查询
+    MenuRole getMenuRoleByMidAndRId(Integer menuId, Integer roleId);
+
+    List<MenuRole> getMenuRoleByRId(Integer roleId);
 
     List<MenuRole> getAllMenuRoles();
 
