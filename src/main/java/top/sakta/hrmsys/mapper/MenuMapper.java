@@ -11,7 +11,6 @@ public interface MenuMapper {
     @Select("SELECT * FROM menu WHERE id = #{id}")
     Menu getMenuById(Integer id);
 
-
     @Select("SELECT * FROM menu")
     List<Menu> getAllMenus();
 
