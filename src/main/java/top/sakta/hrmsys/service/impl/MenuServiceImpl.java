@@ -20,7 +20,6 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
-
     @Override
     public List<Menu> getAllMenus() {
         return menuMapper.getAllMenus();

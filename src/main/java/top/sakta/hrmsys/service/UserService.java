@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface UserService {
     User getUserById(String userId);
+    List<User> getUserByName(String userName);
     List<User> getAllUsers();
     int insertUser(User user);
     int updateUser(User user);
