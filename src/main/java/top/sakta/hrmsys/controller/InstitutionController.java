@@ -26,7 +26,7 @@ public class InstitutionController {
     @Autowired
     private InstitutionService institutionService;
 
-    @SaCheckPermission("position.list")
+    @SaCheckPermission("institution.list")
     @Operation(summary = "获取机构列表接口", description = "json数据，看机构实体类")
     @GetMapping("/list")
     public SaResult list() {
@@ -34,7 +34,7 @@ public class InstitutionController {
         return SaResult.ok("获取成功").setData(institutions);
     }
 
-    @SaCheckPermission("position.query")
+    @SaCheckPermission("institution.query")
     @Operation(summary = "根据机构编号获取详细信息接口", description = "json数据，接收字符串数据")
     @GetMapping("/{iID}")
     public SaResult getInfo(@PathVariable String iID) {
@@ -43,7 +43,7 @@ public class InstitutionController {
         return SaResult.ok("获取成功").setData(institution);
     }
 
-    @SaCheckPermission("position.add")
+    @SaCheckPermission("institution.add")
     @Operation(summary = "新增机构接口", description = "json数据，看机构实体类，全属性必须")
     @PostMapping
     public SaResult add(@Validated @RequestBody Institution institution) {
@@ -54,7 +54,7 @@ public class InstitutionController {
         return SaResult.ok("添加成功");
     }
 
-    @SaCheckPermission("position.edit")
+    @SaCheckPermission("institution.edit")
     @Operation(summary = "修改机构接口", description = "json数据，看机构实体类，全属性必须")
     @PutMapping
     public SaResult edit(@Validated @RequestBody Institution institution) {
@@ -65,7 +65,7 @@ public class InstitutionController {
         return SaResult.ok("修改成功");
     }
 
-    @SaCheckPermission("position.remove")
+    @SaCheckPermission("institution.remove")
     @Operation(summary = "删除机构接口", description = "json数据，接收字符串数据")
     @DeleteMapping("/{iID}")
     public SaResult remove(@PathVariable String iID){

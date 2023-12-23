@@ -1,9 +1,6 @@
 package top.sakta.hrmsys.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import top.sakta.hrmsys.domain.Institution;
 
 import java.util.List;
@@ -20,7 +17,7 @@ public interface InstitutionMapper {
     @Select("SELECT * FROM institution WHERE iID = #{iID}")
     Institution getInstitutionByID(String iID);
 
-    @Select("select * from institution")
+    @Select("SELECT * FROM institution")
     List<Institution> getAllInstitutions();
 
     @Insert("INSERT INTO institution (iID,iName,iLevel,iParent) VALUES (#{iID},#{iName},#{iLevel},#{iParent})")
@@ -29,6 +26,6 @@ public interface InstitutionMapper {
     @Update("UPDATE institution SET iName=#{iName},iLevel=#{iLevel},iParent=#{iParent} WHERE iID=#{iID}")
     int updateInstitution(Institution institution);
 
-    @Update("DELETE FROM institution WHERE iID=#{iID}")
+    @Delete("DELETE FROM institution WHERE iID=#{iID}")
     int deleteInstitution(String rID);
 }
