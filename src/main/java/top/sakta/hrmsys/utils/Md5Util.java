@@ -1,5 +1,7 @@
 package top.sakta.hrmsys.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.security.MessageDigest;
 
 /**
@@ -9,6 +11,7 @@ import java.security.MessageDigest;
  * @date 2023/12/22
  */
 
+@Slf4j
 public class Md5Util {
     /**
      * 加密MD5
@@ -25,6 +28,7 @@ public class Md5Util {
             }
             return sb.toString().toUpperCase();
         } catch (Exception exception) {
+            log.error("MD5加密失败",exception);
         }
         return null;
     }

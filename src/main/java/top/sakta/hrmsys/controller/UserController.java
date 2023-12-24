@@ -1,6 +1,7 @@
 package top.sakta.hrmsys.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.session.SaSession;
@@ -37,6 +38,9 @@ public class UserController {
     @Operation(summary = "登录接口",description = "json数据，看用户实体类，uName可无")
     @PostMapping("/login")
     public SaResult login(@RequestBody User user) {
+        if(user.getUID() == null || user.getUPassword() == null){
+            return SaResult.error("账号/密码不能为空");
+        }
         User newUser = userService.getUserById(user.getUID());
         if(newUser == null){
             return SaResult.error("查无此用户");
@@ -49,11 +53,26 @@ public class UserController {
         }
     }
 
+    @SaCheckLogin
     @Operation(summary = "登出接口",description = "无参数")
     @PutMapping("logout")
     public SaResult logout() {
         StpUtil.logout();
         return SaResult.ok();
+    }
+
+    @SaCheckLogin
+    @Operation(summary = "获取当前用户权限",description = "无参数")
+    @GetMapping("/getInfo")
+    public SaResult getInfo() {
+        return SaResult.ok("获取成功").setData(StpUtil.getPermissionList());
+    }
+
+    @SaCheckLogin
+    @Operation(summary = "获取当前用户角色",description = "无参数")
+    @GetMapping("/getRole")
+    public SaResult getRole() {
+        return SaResult.ok("获取成功").setData(StpUtil.getRoleList());
     }
 
     @SaCheckPermission("user.add")
