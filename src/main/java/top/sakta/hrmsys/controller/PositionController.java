@@ -30,7 +30,7 @@ public class PositionController {
     @SaCheckPermission("position.all")
     @Operation(summary = "获取职位列表接口", description = "无参数")
     @GetMapping("/getAll")
-    public SaResult list() {
+    public SaResult getAllPositions() {
         List<Position> positions = positionService.getAllPositions();
         return SaResult.ok("获取成功").setData(positions);
     }
@@ -38,7 +38,7 @@ public class PositionController {
     @SaCheckPermission("position.get")
     @Operation(summary = "根据职位编号获取详细信息接口", description = "根据职位编号pID获取职位，参数为pID")
     @GetMapping("/get/{pID}")
-    public SaResult getInfo(@PathVariable int pID) {
+    public SaResult getPosition(@PathVariable int pID) {
         Position position = positionService.getPositionByID(pID);
         if(position == null) {
             return SaResult.error("职位不存在");
@@ -49,7 +49,7 @@ public class PositionController {
     @SaCheckPermission("position.add")
     @Operation(summary = "新增职位接口", description = "json数据，看职位实体类，uID可无")
     @PostMapping("/add")
-    public SaResult add(@Validated @RequestBody Position position) {
+    public SaResult addPosition(@Validated @RequestBody Position position) {
         if(positionService.getPositionByID(position.getPID()) != null) {
             return SaResult.error("职位已存在");
         }
@@ -60,7 +60,7 @@ public class PositionController {
     @SaCheckPermission("position.update")
     @Operation(summary = "修改部门接口", description = "json数据，看职位实体类，全属性必须")
     @PutMapping("/update")
-    public SaResult edit(@Validated @RequestBody Position position) {
+    public SaResult updatePosition(@Validated @RequestBody Position position) {
         if(positionService.getPositionByID(position.getPID()) == null){
             return SaResult.error("修改失败，查无此职位");
         }
@@ -71,7 +71,7 @@ public class PositionController {
     @SaCheckPermission("position.delete")
     @Operation(summary = "删除部门接口", description = "根据职位编号pID删除用户，参数为pID")
     @DeleteMapping("/delete/{pID}")
-    public SaResult remove(@PathVariable int pID){
+    public SaResult deletePosition(@PathVariable int pID){
         if(positionService.getPositionByID(pID) == null){
             return SaResult.error("删除失败，查无此职位");
         }

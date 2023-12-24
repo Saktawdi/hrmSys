@@ -28,4 +28,14 @@ public interface InstitutionMapper {
 
     @Delete("DELETE FROM institution WHERE iID=#{iID}")
     int deleteInstitution(String rID);
+
+    @Select("SELECT * FROM institution WHERE iLevel = #{iLevel}")
+    List<Institution> getInstitutionByLevel(Integer iLevel);
+
+    @Select("SELECT * FROM institution WHERE iLevel = #{iLevel} AND iParent = #{iParent}")
+    List<Institution> getInstitutionByLevelAndParent(Integer iLevel,String iParent);
+
+    @Select("SELECT * FROM institution WHERE iParent = #{iParent}")
+    List<Institution> getInstitutionsByParent(String iParent);
+
 }
