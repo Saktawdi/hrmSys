@@ -63,9 +63,17 @@ public class UserController {
 
     @SaCheckLogin
     @Operation(summary = "获取当前用户权限",description = "无参数")
-    @GetMapping("/getInfo")
-    public SaResult getInfo() {
+    @GetMapping("/getPermission")
+    public SaResult getPermission() {
         return SaResult.ok("获取成功").setData(StpUtil.getPermissionList());
+    }
+
+    @SaCheckLogin
+    @Operation(summary = "获取当前用户信息",description = "无参数")
+    @GetMapping("/getUserInfo")
+    public SaResult getUserInfo() {
+        User user = userService.getUserById((String) StpUtil.getLoginId());
+        return SaResult.ok("获取成功").setData(user);
     }
 
     @SaCheckLogin

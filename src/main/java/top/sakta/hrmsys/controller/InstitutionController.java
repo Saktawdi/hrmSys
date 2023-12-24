@@ -28,6 +28,7 @@ public class InstitutionController {
     @Autowired
     private InstitutionService institutionService;
 
+
     @SaCheckPermission("institution.all")
     @Operation(summary = "获取机构列表接口", description = "无参数")
     @GetMapping("/getAll")
