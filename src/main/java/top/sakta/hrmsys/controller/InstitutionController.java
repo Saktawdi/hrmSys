@@ -29,7 +29,7 @@ public class InstitutionController {
     private InstitutionService institutionService;
 
     @SaCheckPermission("institution.list")
-    @Operation(summary = "获取机构列表接口", description = "json数据，看机构实体类")
+    @Operation(summary = "获取机构列表接口", description = "无参数")
     @GetMapping("/list")
     public SaResult list() {
         List<Institution> institutions = institutionService.getAllInstitutions();
@@ -37,7 +37,7 @@ public class InstitutionController {
     }
 
     @SaCheckPermission("institution.query")
-    @Operation(summary = "根据机构编号获取详细信息接口", description = "json数据，接收字符串数据")
+    @Operation(summary = "根据机构编号获取详细信息接口", description = "urlPath iID机构编号")
     @GetMapping("/{iID}")
     public SaResult getInfo(@PathVariable String iID) {
         Institution institution = institutionService.getInstitutionByID(iID);
@@ -77,4 +77,5 @@ public class InstitutionController {
         institutionService.deleteInstitution(iID);
         return SaResult.ok("删除成功");
     }
+
 }
