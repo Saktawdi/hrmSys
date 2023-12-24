@@ -38,4 +38,19 @@ public class InstitutionServiceImpl implements InstitutionService {
     public int deleteInstitution(String rID) {
         return institutionMapper.deleteInstitution(rID);
     }
+
+    @Override
+    public List<Institution> getInstitutionsByLevel(Integer iLevel) {
+        return institutionMapper.getInstitutionByLevel(iLevel);
+    }
+
+    @Override
+    public List<Institution> getInstitutionsByLevelAndParent(Integer iLevel, String iParent) {
+        return institutionMapper.getInstitutionByLevelAndParent(iLevel,iParent);
+    }
+
+    @Override
+    public List<Institution> getInstitutionsByParent(String iParent) {
+        return institutionMapper.getInstitutionsByParent(iParent);
+    }
 }

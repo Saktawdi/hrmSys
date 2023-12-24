@@ -21,4 +21,10 @@ public interface InstitutionService {
     int updateInstitution(Institution institution);
 
     int deleteInstitution(String rID);
+
+    List<Institution> getInstitutionsByLevel(Integer iLevel);
+
+    List<Institution> getInstitutionsByLevelAndParent(Integer iLevel,String iParent);
+
+    List<Institution> getInstitutionsByParent(String iParent);
 }

@@ -28,18 +28,19 @@ public class InstitutionController {
     @Autowired
     private InstitutionService institutionService;
 
-    @SaCheckPermission("institution.list")
+
+    @SaCheckPermission("institution.all")
     @Operation(summary = "获取机构列表接口", description = "无参数")
-    @GetMapping("/list")
-    public SaResult list() {
+    @GetMapping("/getAll")
+    public SaResult getAllInstitutions() {
         List<Institution> institutions = institutionService.getAllInstitutions();
         return SaResult.ok("获取成功").setData(institutions);
     }
 
-    @SaCheckPermission("institution.query")
-    @Operation(summary = "根据机构编号获取详细信息接口", description = "urlPath iID机构编号")
-    @GetMapping("/{iID}")
-    public SaResult getInfo(@PathVariable String iID) {
+    @SaCheckPermission("institution.get")
+    @Operation(summary = "根据机构编号获取详细信息接口", description = "根据机构编号iID获取机构，参数为iID")
+    @GetMapping("/get/{iID}")
+    public SaResult getInstitution(@PathVariable String iID) {
         Institution institution = institutionService.getInstitutionByID(iID);
         if(institution == null) return SaResult.error("机构不存在");
         return SaResult.ok("获取成功").setData(institution);
@@ -47,8 +48,8 @@ public class InstitutionController {
 
     @SaCheckPermission("institution.add")
     @Operation(summary = "新增机构接口", description = "json数据，看机构实体类，全属性必须")
-    @PostMapping
-    public SaResult add(@Validated @RequestBody Institution institution) {
+    @PostMapping("/add")
+    public SaResult addInstitution(@Validated @RequestBody Institution institution) {
         if(institutionService.getInstitutionByID(institution.getIID()) != null) {
             return SaResult.error("机构已存在");
         }
@@ -56,10 +57,10 @@ public class InstitutionController {
         return SaResult.ok("添加成功");
     }
 
-    @SaCheckPermission("institution.edit")
+    @SaCheckPermission("institution.update")
     @Operation(summary = "修改机构接口", description = "json数据，看机构实体类，全属性必须")
-    @PutMapping
-    public SaResult edit(@Validated @RequestBody Institution institution) {
+    @PutMapping("/update")
+    public SaResult updateInstitution(@Validated @RequestBody Institution institution) {
         if(institutionService.getInstitutionByID(institution.getIID()) == null){
             return SaResult.error("修改失败，查无此机构");
         }
@@ -67,14 +68,48 @@ public class InstitutionController {
         return SaResult.ok("修改成功");
     }
 
-    @SaCheckPermission("institution.remove")
-    @Operation(summary = "删除机构接口", description = "json数据，接收字符串数据")
-    @DeleteMapping("/{iID}")
-    public SaResult remove(@PathVariable String iID){
+    @SaCheckPermission("institution.delete")
+    @Operation(summary = "删除机构接口", description = "根据机构编号iID删除机构，参数为iID")
+    @DeleteMapping("/delete/{iID}")
+    public SaResult deleteInstitution(@PathVariable String iID){
         if(institutionService.getInstitutionByID(iID) == null){
             return SaResult.error("删除失败，查无此机构");
         }
         institutionService.deleteInstitution(iID);
         return SaResult.ok("删除成功");
+    }
+
+
+    @SaCheckPermission("institution.get")
+    @Operation(summary = "根据iLevel等级获取详细信息接口", description = "根据level等级获取机构，参数为iLevel")
+    @GetMapping("/getByLevel/{iLevel}")
+    public SaResult getInstitutionByLevel(@PathVariable Integer iLevel) {
+        List<Institution> institutions = institutionService.getInstitutionsByLevel(iLevel);
+        return SaResult.ok("获取成功").setData(institutions);
+    }
+
+    @SaCheckPermission("institution.get")
+    @Operation(summary = "根据iLevel等级和iParent父类ID获取详细信息接口", description = "根据iLevel等级和iParent父类ID获取机构，参数为iLevel,iParent")
+    @GetMapping("/getByLevelAndParent/{iLevel}/{iParent}")
+    public SaResult getInstitutionByLevelAndParent(@PathVariable Integer iLevel,@PathVariable String iParent) {
+        List<Institution> institutions = institutionService.getInstitutionsByLevelAndParent(iLevel,iParent);
+        return SaResult.ok("获取成功").setData(institutions);
+    }
+
+    @SaCheckPermission("institution.get")
+    @Operation(summary = "根据根据iParent父类ID获取详细信息接口", description = "根据iParent父类ID获取机构，参数为iParent")
+    @GetMapping("/getByParent/{iParent}")
+    public SaResult getInstitutionByiParent(@PathVariable String iParent) {
+        List<Institution> institutions = institutionService.getInstitutionsByParent(iParent);
+        return SaResult.ok("获取成功").setData(institutions);
+    }
+
+    @SaCheckPermission("institution.get")
+    @Operation(summary = "根据机构编号iID判断是否为父类接口", description = "根据机构编号iID判断是否为父类接口，参数为iID")
+    @GetMapping("/isParent/{iID}")
+    public SaResult isParent(@PathVariable String iID) {
+        List<Institution> institutions = institutionService.getInstitutionsByParent(iID);
+        if(institutions.isEmpty()) return SaResult.ok("目标ID不为父类");
+        return SaResult.ok("目标ID为父类");
     }
 }

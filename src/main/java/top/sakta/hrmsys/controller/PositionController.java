@@ -27,18 +27,18 @@ public class PositionController {
     @Autowired
     private PositionService positionService;
 
-    @SaCheckPermission("position.list")
-    @Operation(summary = "获取职位列表接口", description = "json数据，看职位实体类")
-    @GetMapping("/list")
-    public SaResult list() {
+    @SaCheckPermission("position.all")
+    @Operation(summary = "获取职位列表接口", description = "无参数")
+    @GetMapping("/getAll")
+    public SaResult getAllPositions() {
         List<Position> positions = positionService.getAllPositions();
         return SaResult.ok("获取成功").setData(positions);
     }
 
-    @SaCheckPermission("position.query")
-    @Operation(summary = "根据职位编号获取详细信息接口", description = "json数据，接收整型数据")
-    @GetMapping("/{pID}")
-    public SaResult getInfo(@PathVariable int pID) {
+    @SaCheckPermission("position.get")
+    @Operation(summary = "根据职位编号获取详细信息接口", description = "根据职位编号pID获取职位，参数为pID")
+    @GetMapping("/get/{pID}")
+    public SaResult getPosition(@PathVariable int pID) {
         Position position = positionService.getPositionByID(pID);
         if(position == null) {
             return SaResult.error("职位不存在");
@@ -48,8 +48,8 @@ public class PositionController {
 
     @SaCheckPermission("position.add")
     @Operation(summary = "新增职位接口", description = "json数据，看职位实体类，uID可无")
-    @PostMapping
-    public SaResult add(@Validated @RequestBody Position position) {
+    @PostMapping("/add")
+    public SaResult addPosition(@Validated @RequestBody Position position) {
         if(positionService.getPositionByID(position.getPID()) != null) {
             return SaResult.error("职位已存在");
         }
@@ -57,10 +57,10 @@ public class PositionController {
         return SaResult.ok("添加成功");
     }
 
-    @SaCheckPermission("position.edit")
+    @SaCheckPermission("position.update")
     @Operation(summary = "修改部门接口", description = "json数据，看职位实体类，全属性必须")
-    @PutMapping
-    public SaResult edit(@Validated @RequestBody Position position) {
+    @PutMapping("/update")
+    public SaResult updatePosition(@Validated @RequestBody Position position) {
         if(positionService.getPositionByID(position.getPID()) == null){
             return SaResult.error("修改失败，查无此职位");
         }
@@ -68,10 +68,10 @@ public class PositionController {
         return SaResult.ok("修改成功");
     }
 
-    @SaCheckPermission("position.remove")
-    @Operation(summary = "删除部门接口", description = "json数据，接收整型数据")
-    @DeleteMapping("/{pID}")
-    public SaResult remove(@PathVariable int pID){
+    @SaCheckPermission("position.delete")
+    @Operation(summary = "删除部门接口", description = "根据职位编号pID删除用户，参数为pID")
+    @DeleteMapping("/delete/{pID}")
+    public SaResult deletePosition(@PathVariable int pID){
         if(positionService.getPositionByID(pID) == null){
             return SaResult.error("删除失败，查无此职位");
         }
