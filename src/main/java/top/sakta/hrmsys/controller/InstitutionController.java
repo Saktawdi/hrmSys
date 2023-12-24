@@ -77,5 +77,4 @@ public class InstitutionController {
         institutionService.deleteInstitution(iID);
         return SaResult.ok("删除成功");
     }
-
 }
