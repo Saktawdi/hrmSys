@@ -28,17 +28,17 @@ public class InstitutionController {
     @Autowired
     private InstitutionService institutionService;
 
-    @SaCheckPermission("institution.list")
-    @Operation(summary = "获取机构列表接口", description = "json数据，看机构实体类")
-    @GetMapping("/list")
+    @SaCheckPermission("institution.all")
+    @Operation(summary = "获取机构列表接口", description = "无参数")
+    @GetMapping("/getAll")
     public SaResult list() {
         List<Institution> institutions = institutionService.getAllInstitutions();
         return SaResult.ok("获取成功").setData(institutions);
     }
 
-    @SaCheckPermission("institution.query")
-    @Operation(summary = "根据机构编号获取详细信息接口", description = "json数据，接收字符串数据")
-    @GetMapping("/{iID}")
+    @SaCheckPermission("institution.get")
+    @Operation(summary = "根据机构编号获取详细信息接口", description = "根据机构编号iID获取机构，参数为iID")
+    @GetMapping("/get/{iID}")
     public SaResult getInfo(@PathVariable String iID) {
         Institution institution = institutionService.getInstitutionByID(iID);
         if(institution == null) return SaResult.error("机构不存在");
@@ -47,7 +47,7 @@ public class InstitutionController {
 
     @SaCheckPermission("institution.add")
     @Operation(summary = "新增机构接口", description = "json数据，看机构实体类，全属性必须")
-    @PostMapping
+    @PostMapping("/add")
     public SaResult add(@Validated @RequestBody Institution institution) {
         if(institutionService.getInstitutionByID(institution.getIID()) != null) {
             return SaResult.error("机构已存在");
@@ -56,9 +56,9 @@ public class InstitutionController {
         return SaResult.ok("添加成功");
     }
 
-    @SaCheckPermission("institution.edit")
+    @SaCheckPermission("institution.update")
     @Operation(summary = "修改机构接口", description = "json数据，看机构实体类，全属性必须")
-    @PutMapping
+    @PutMapping("/update")
     public SaResult edit(@Validated @RequestBody Institution institution) {
         if(institutionService.getInstitutionByID(institution.getIID()) == null){
             return SaResult.error("修改失败，查无此机构");
@@ -67,9 +67,9 @@ public class InstitutionController {
         return SaResult.ok("修改成功");
     }
 
-    @SaCheckPermission("institution.remove")
-    @Operation(summary = "删除机构接口", description = "json数据，接收字符串数据")
-    @DeleteMapping("/{iID}")
+    @SaCheckPermission("institution.delete")
+    @Operation(summary = "删除机构接口", description = "根据机构编号iID删除机构，参数为iID")
+    @DeleteMapping("/delete/{iID}")
     public SaResult remove(@PathVariable String iID){
         if(institutionService.getInstitutionByID(iID) == null){
             return SaResult.error("删除失败，查无此机构");
@@ -77,4 +77,5 @@ public class InstitutionController {
         institutionService.deleteInstitution(iID);
         return SaResult.ok("删除成功");
     }
+
 }
