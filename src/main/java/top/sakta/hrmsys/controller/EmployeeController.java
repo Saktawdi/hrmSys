@@ -43,7 +43,7 @@ public class EmployeeController {
     @Autowired
     private UserService userService;
 
-    @SaCheckPermission("employee.all")
+//    @SaCheckPermission("employee.all")
     @Operation(summary = "获取档案列表接口", description = "无参数")
     @GetMapping("/getAll")
     public SaResult getAllEmployees() {
@@ -68,7 +68,7 @@ public class EmployeeController {
         return SaResult.ok("获取成功").setData(employees);
     }
 
-    @SaCheckPermission("employee.add")
+//    @SaCheckPermission("employee.add")
     @Operation(summary = "新增档案接口", description = "json数据，看档案实体类，eRecoders、eID参数可无")
     @PostMapping("/add")
     public SaResult addEmployee(@Validated @RequestBody Employee employee) {
@@ -76,7 +76,7 @@ public class EmployeeController {
         employee.setERecodDate(new Date());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(employee.getERecodDate());
-        ID += calendar.get(Calendar.YEAR) + employee.getEL1InstID() + employee.getEL2InstID() + employee.getEL3InstID();
+        ID += calendar.get(Calendar.YEAR) + String.format("%2s",employee.getEL1InstID()).replace(" ","0") + String.format("%2s",employee.getEL2InstID()).replace(" ","0") + String.format("%2s",employee.getEL3InstID()).replace(" ","0");
         int count = employeeService.getEmployeeLikeID(ID).size() + 1;
         if(count >= 100){
             return SaResult.error("添加失败：该机构今年编号已满");
