@@ -110,7 +110,7 @@ public class EmployeeController {
             return SaResult.error("删除失败，查无此档案");
         }
         if(employee.getEStatus() == 0){
-            return SaResult.error("删除失败，该档案不是未审核状态");
+            return SaResult.error("删除失败，该档案是未审核状态");
         }
         employeeService.updateEmployeeStatus(eID,-1);
         return SaResult.ok("删除成功");
