@@ -76,10 +76,10 @@ public class EmployeeController {
         employee.setERecodDate(new Date());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(employee.getERecodDate());
-        ID += calendar.get(Calendar.YEAR) + String.format("%2s",employee.getEL1InstID()).replace(" ","0") + String.format("%2s",employee.getEL2InstID()).replace(" ","0") + String.format("%2s",employee.getEL3InstID()).replace(" ","0");
+        ID += calendar.get(Calendar.YEAR) + employee.getEL1InstID() + employee.getEL2InstID() + employee.getEL3InstID().substring(employee.getEL3InstID().length()-2);
         int count = employeeService.getEmployeeLikeID(ID).size() + 1;
         if(count >= 100){
-            return SaResult.error("添加失败：该机构今年编号已满");
+            return SaResult.error("添加失败：该机构今年的档案编号已满");
         }
         ID += String.format("%02d",count);
         User user = userService.getUserById(StpUtil.getLoginIdAsString());
