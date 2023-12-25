@@ -43,7 +43,7 @@ public class EmployeeController {
     @Autowired
     private UserService userService;
 
-//    @SaCheckPermission("employee.all")
+    @SaCheckPermission("employee.all")
     @Operation(summary = "获取档案列表接口", description = "无参数")
     @GetMapping("/getAll")
     public SaResult getAllEmployees() {
@@ -68,7 +68,7 @@ public class EmployeeController {
         return SaResult.ok("获取成功").setData(employees);
     }
 
-//    @SaCheckPermission("employee.add")
+    @SaCheckPermission("employee.add")
     @Operation(summary = "新增档案接口", description = "json数据，看档案实体类，eRecoders、eID参数可无")
     @PostMapping("/add")
     public SaResult addEmployee(@Validated @RequestBody Employee employee) {
