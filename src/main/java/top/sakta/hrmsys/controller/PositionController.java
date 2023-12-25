@@ -78,4 +78,12 @@ public class PositionController {
         positionService.deletePosition(pID);
         return SaResult.ok("删除成功");
     }
+
+    @SaCheckPermission("position.get")
+    @Operation(summary = "根据职位分类获取详细信息接口", description = "根据职位分类pCategory获取职位，参数为pCategory")
+    @GetMapping("/getByCategory/{pCategory}")
+    public SaResult getPositionByCategory(@PathVariable String pCategory) {
+        List<Position> positions = positionService.getPositionByCategory(pCategory);
+        return SaResult.ok("获取成功").setData(positions);
+    }
 }

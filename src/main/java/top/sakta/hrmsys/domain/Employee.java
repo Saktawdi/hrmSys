@@ -130,6 +130,6 @@ public class Employee {
     private Date eRecodDate;
 
     @Schema(description = "档案状态")
-    private String eStatus;
+    private int eStatus;
 
 }

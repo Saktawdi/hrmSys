@@ -113,12 +113,7 @@ public class UserController {
         User newUser = new User();
         newUser.setUID(user.getUID());
         newUser.setUName(user.getUName());
-        //判断是否md5加密
-        if(user.getUPassword().length() != 32){
-            newUser.setUPassword(Md5Util.getMD5(user.getUPassword()));
-        }else{
-            newUser.setUPassword(user.getUPassword());
-        }
+        newUser.setUPassword(Md5Util.getMD5(user.getUPassword()));
         int result = userService.updateUser(newUser);
         if(result == 0){
             return SaResult.error("更新失败");

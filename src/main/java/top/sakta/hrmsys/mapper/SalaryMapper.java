@@ -28,4 +28,7 @@ public interface SalaryMapper {
 
     @Delete("DELETE FROM salary WHERE sID=#{sID}")
     int deleteSalary(Integer sID);
+
+    @Select("SELECT * FROM salary WHERE sStatus = #{sStatus}")
+    List<Salary> getSalaryByStatus(String sStatus);
 }

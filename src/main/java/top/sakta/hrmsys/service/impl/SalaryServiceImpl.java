@@ -38,4 +38,9 @@ public class SalaryServiceImpl implements SalaryService {
     public int deleteSalary(Integer sID) {
         return salaryMapper.deleteSalary(sID);
     }
+
+    @Override
+    public List<Salary> getSalaryByStatus(String sStatus) {
+        return salaryMapper.getSalaryByStatus(sStatus);
+    }
 }

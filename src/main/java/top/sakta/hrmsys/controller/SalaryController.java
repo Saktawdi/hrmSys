@@ -76,4 +76,12 @@ public class SalaryController {
         salaryService.deleteSalary(sID);
         return SaResult.ok("删除成功");
     }
+
+    @SaCheckPermission("salary.get")
+    @Operation(summary = "根据薪酬状态获取薪资标准列表接口", description = "根据薪资薪酬状态sStatus获取薪资标准，参数为sStatus")
+    @GetMapping("/getByStatus/{sStatus}")
+    public SaResult getAllSalaries(@PathVariable String sStatus) {
+        List<Salary> salaries = salaryService.getSalaryByStatus(sStatus);
+        return SaResult.ok("获取成功").setData(salaries);
+    }
 }

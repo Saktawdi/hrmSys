@@ -21,4 +21,6 @@ public interface SalaryService {
     int updateSalary(Salary salary);
 
     int deleteSalary(Integer sID);
+
+    List<Salary> getSalaryByStatus(String sStatus);
 }
