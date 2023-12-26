@@ -201,19 +201,22 @@ INSERT INTO `role` VALUES ('3', 'test', '测试人员');
 -- ----------------------------
 DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary` (
-  `sID` int(3) NOT NULL COMMENT '标准编号',
+  `sID` int(3) NOT NULL AUTO_INCREMENT COMMENT '标准编号',
   `sName` varchar(200) DEFAULT NULL COMMENT '标准名',
-  `sBasic` double DEFAULT NULL COMMENT '基本工资',
-  `sTransport` double DEFAULT NULL COMMENT '交通补助',
-  `sLunch` double DEFAULT NULL COMMENT '午餐补助',
-  `sCommunicate` double DEFAULT NULL COMMENT '通讯补助',
-  `sPension` double DEFAULT NULL COMMENT '养老保险',
-  `sMedical` double DEFAULT NULL COMMENT '医疗保险',
-  `sUnemployment` double DEFAULT NULL COMMENT '失业保险',
+  `sBasic` DECIMAL(10, 2) DEFAULT NULL COMMENT '基本工资',
+  `sTransport` DECIMAL(10, 2) DEFAULT NULL COMMENT '交通补助',
+  `sLunch` DECIMAL(10, 2) DEFAULT NULL COMMENT '午餐补助',
+  `sCommunicate` DECIMAL(10, 2) DEFAULT NULL COMMENT '通讯补助',
+  `sPension` DECIMAL(10, 2) DEFAULT NULL COMMENT '养老保险',
+  `sMedical` DECIMAL(10, 2) DEFAULT NULL COMMENT '医疗保险',
+  `sUnemployment` DECIMAL(10, 2) DEFAULT NULL COMMENT '失业保险',
+  `sHouse` DECIMAL(10, 2) DEFAULT NULL COMMENT '住房公积金',
   `sRecorder` varchar(200) DEFAULT NULL COMMENT '记录人,uid',
-  `sRecordDate` date DEFAULT NULL COMMENT '记录时间',
+  `sRecordDate` datetime DEFAULT NULL COMMENT '记录时间',
   `sMaker` varchar(200) DEFAULT NULL COMMENT '制定人,uid',
+  `sChecker` varchar(200) DEFAULT NULL COMMENT '审核人,uid',
   `sStatus` int(3) DEFAULT '0' COMMENT '标准状态',
+  `sOpinion` text COMMENT '复核意见',
   PRIMARY KEY (`sID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

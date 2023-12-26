@@ -45,6 +45,9 @@ public class Salary {
     @Schema(description = "失业保险")
     private double sUnemployment;
 
+    @Schema(description = "住房公积金")
+    private double sHouse;
+
     @Schema(description = "记录人")
     private String sRecorder;
 
@@ -54,6 +57,12 @@ public class Salary {
     @Schema(description = "制定人")
     private String sMaker;
 
+    @Schema(description = "审核人")
+    private String sChecker;
+
     @Schema(description = "标准状态")
-    private String sStatus;
+    private int sStatus;
+
+    @Schema(description = "复核意见")
+    private String sOpinion;
 }
