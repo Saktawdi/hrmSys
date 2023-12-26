@@ -166,7 +166,7 @@ public class EmployeeController {
         return SaResult.ok("审核成功");
     }
 
-//    @SaCheckPermission("employee.get")
+    @SaCheckPermission("employee.get")
     @Operation(summary = "多条件查询档案接口", description = "根据条件查询档案，参数为eL1InstID、eL2InstID、eL3InstID、ePositionCategory、ePositionName、StartRecodDate、EndRecodDate，所有参数可无")
     @PostMapping("/getByConditions")
     public SaResult getEmployeesByConditions(@RequestBody Map<String,Object> body) throws ParseException {
