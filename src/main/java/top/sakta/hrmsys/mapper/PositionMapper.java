@@ -28,4 +28,7 @@ public interface PositionMapper {
 
     @Delete("DELETE FROM position WHERE pID=#{pID}")
     int deletePosition(Integer pID);
+
+    @Select("SELECT * FROM position WHERE pCategory = #{pCategory}")
+    List<Position> getPositionByCategory(String pCategory);
 }

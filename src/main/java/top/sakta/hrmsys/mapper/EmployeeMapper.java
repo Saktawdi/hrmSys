@@ -3,6 +3,7 @@ package top.sakta.hrmsys.mapper;
 import org.apache.ibatis.annotations.*;
 import top.sakta.hrmsys.domain.Employee;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,4 +29,38 @@ public interface EmployeeMapper {
 
     @Delete("DELETE FROM employee WHERE eID=#{eID}")
     int deleteEmployee(String eID);
+
+    @Select("SELECT * FROM employee WHERE eID LIKE '${ID}%'")
+    List<Employee> getEmployeeLikeID(String ID);
+
+    @Select("SELECT * FROM employee WHERE eStatus = #{eStatus}")
+    List<Employee> getEmployeesByStatus(int eStatus);
+
+    @Select("<script> " +
+            "SELECT * FROM employee <where> " +
+            "<if test =\"eL1InstID != null and eL1InstID != ''\"> AND eL1InstID = #{eL1InstID}</if>" +
+            "<if test =\"eL2InstID != null and eL2InstID != ''\"> AND eL2InstID = #{eL2InstID}</if>" +
+            "<if test =\"eL3InstID != null and eL3InstID != ''\"> AND eL3InstID = #{eL3InstID}</if>" +
+            "<if test =\"ePositionCategory != null and ePositionCategory != ''\"> AND ePositionCategory = #{ePositionCategory}</if>" +
+            "<if test =\"ePositionName != null and ePositionName != ''\"> AND ePositionName = #{ePositionName}</if>" +
+            "<if test =\"StartRecodDate != null and EndRecodDate != null\"> AND eRecodDate BETWEEN #{StartRecodDate} AND #{EndRecodDate}</if>" +
+            " </where></script>")
+    List<Employee> getEmployeesByConditions(String eL1InstID, String eL2InstID, String eL3InstID, String ePositionCategory, String ePositionName, Date StartRecodDate, Date EndRecodDate);
+
+    @Update("UPDATE employee SET eStatus=#{eStatus} WHERE eID=#{eID}")
+    int updateEmployeeStatus(String eID,int eStatus);
+
+    @Select("SELECT * FROM employee WHERE ePositionCategory = #{ePositionCategory} AND ePositionName = #{ePositionName}")
+    List<Employee> getEmployeesByPositionCategoryAndPositionName(String ePositionCategory,String ePositionName);
+
+    @Update("<script> " +
+            "UPDATE employee <set> " +
+            "<if test = \"eL1InstID != null\">eL1InstID=#{eL1InstID}, </if>" +
+            "<if test = \"eL2InstID != null\">eL2InstID=#{eL2InstID}, </if>" +
+            "<if test = \"eL3InstID != null\">eL3InstID=#{eL3InstID} </if> " +
+            "</set> WHERE eID=#{eID} </script>")
+    int updateEmployeeInstitutions(String eID,String eL1InstID,String eL2InstID,String eL3InstID);
+
+    @Select("SELECT * FROM employee WHERE eL1InstID = #{InstID} OR eL2InstID = #{InstID} OR eL3InstID = #{InstID}")
+    List<Employee> getEmployeesByInstitution(String InstID);
 }

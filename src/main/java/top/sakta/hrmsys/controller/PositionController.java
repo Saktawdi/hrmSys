@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.sakta.hrmsys.domain.Position;
+import top.sakta.hrmsys.service.EmployeeService;
 import top.sakta.hrmsys.service.PositionService;
 
 import java.util.List;
@@ -26,6 +27,9 @@ public class PositionController {
 
     @Autowired
     private PositionService positionService;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     @SaCheckPermission("position.all")
     @Operation(summary = "获取职位列表接口", description = "无参数")
@@ -69,13 +73,25 @@ public class PositionController {
     }
 
     @SaCheckPermission("position.delete")
-    @Operation(summary = "删除部门接口", description = "根据职位编号pID删除用户，参数为pID")
+    @Operation(summary = "删除职位接口", description = "根据职位编号pID删除用户，参数为pID")
     @DeleteMapping("/delete/{pID}")
     public SaResult deletePosition(@PathVariable int pID){
-        if(positionService.getPositionByID(pID) == null){
+        Position position = positionService.getPositionByID(pID);
+        if(position == null){
             return SaResult.error("删除失败，查无此职位");
+        }
+        if(!employeeService.getEmployeesByPositionCategoryAndPositionName(position.getPCategory(),position.getPName()).isEmpty()){
+            return SaResult.error("删除失败，档案中有该职位");
         }
         positionService.deletePosition(pID);
         return SaResult.ok("删除成功");
+    }
+
+    @SaCheckPermission("position.get")
+    @Operation(summary = "根据职位分类获取详细信息接口", description = "根据职位分类pCategory获取职位，参数为pCategory")
+    @GetMapping("/getByCategory/{pCategory}")
+    public SaResult getPositionByCategory(@PathVariable String pCategory) {
+        List<Position> positions = positionService.getPositionByCategory(pCategory);
+        return SaResult.ok("获取成功").setData(positions);
     }
 }

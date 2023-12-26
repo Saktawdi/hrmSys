@@ -38,4 +38,9 @@ public class PositionServiceImpl implements PositionService {
     public int deletePosition(Integer ID) {
         return positionMapper.deletePosition(ID);
     }
+
+    @Override
+    public List<Position> getPositionByCategory(String pCategory) {
+        return positionMapper.getPositionByCategory(pCategory);
+    }
 }

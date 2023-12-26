@@ -23,7 +23,7 @@ public class Institution {
     private String iName;
 
     @Schema(description = "机构等级")
-    private String iLevel;
+    private Integer iLevel;
 
     @Schema(description = "上级机构编号")
     private String iParent;

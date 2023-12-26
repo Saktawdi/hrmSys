@@ -6,6 +6,7 @@ import top.sakta.hrmsys.domain.Salary;
 import top.sakta.hrmsys.mapper.SalaryMapper;
 import top.sakta.hrmsys.service.SalaryService;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -38,4 +39,20 @@ public class SalaryServiceImpl implements SalaryService {
     public int deleteSalary(Integer sID) {
         return salaryMapper.deleteSalary(sID);
     }
+
+    @Override
+    public List<Salary> getSalaryByStatus(int sStatus) {
+        return salaryMapper.getSalaryByStatus(sStatus);
+    }
+
+    @Override
+    public int updateSalaryStatus(Integer sID, int sStatus, String uID) {
+        return salaryMapper.updateSalaryStatus(sID,sStatus,uID);
+    }
+
+    @Override
+    public List<Salary> getSalariesByConditions(Integer sID, String keyWords, String uID, Date StartRecodDate, Date EndRecodDate) {
+        return salaryMapper.getSalariesByConditions(sID,keyWords,uID,StartRecodDate,EndRecodDate);
+    }
+
 }

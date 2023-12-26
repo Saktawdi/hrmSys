@@ -22,7 +22,7 @@ public class CorsConfig implements WebMvcConfigurer {
         corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addExposedHeader("Authorization");
+        corsConfiguration.addExposedHeader("token");
         return corsConfiguration;
     }
 

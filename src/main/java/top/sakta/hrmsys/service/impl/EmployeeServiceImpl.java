@@ -6,6 +6,7 @@ import top.sakta.hrmsys.domain.Employee;
 import top.sakta.hrmsys.mapper.EmployeeMapper;
 import top.sakta.hrmsys.service.EmployeeService;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,5 +38,40 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public int deleteEmployee(String rID) {
         return employeeMapper.deleteEmployee(rID);
+    }
+
+    @Override
+    public List<Employee> getEmployeeLikeID(String ID) {
+        return employeeMapper.getEmployeeLikeID(ID);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByStatus(int eStatus) {
+        return employeeMapper.getEmployeesByStatus(eStatus);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByConditions(String eL1InstID, String eL2InstID, String eL3InstID, String ePositionCategory, String ePositionName, Date StartRecodDate, Date EndRecodDate) {
+        return employeeMapper.getEmployeesByConditions(eL1InstID,eL2InstID,eL3InstID,ePositionCategory,ePositionName,StartRecodDate,EndRecodDate);
+    }
+
+    @Override
+    public int updateEmployeeStatus(String eID, int eStatus) {
+        return employeeMapper.updateEmployeeStatus(eID,eStatus);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByPositionCategoryAndPositionName(String ePositionCategory, String ePositionName) {
+        return employeeMapper.getEmployeesByPositionCategoryAndPositionName(ePositionCategory,ePositionName);
+    }
+
+    @Override
+    public int updateEmployeeInstitutions(String eID, String eL1InstID, String eL2InstID, String eL3InstID) {
+        return employeeMapper.updateEmployeeInstitutions(eID,eL1InstID,eL2InstID,eL3InstID);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByInstitution(String InstID) {
+        return employeeMapper.getEmployeesByInstitution(InstID);
     }
 }

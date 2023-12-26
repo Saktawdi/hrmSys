@@ -21,4 +21,7 @@ public interface PositionService {
     int updatePosition(Position position);
 
     int deletePosition(Integer ID);
+
+    List<Position> getPositionByCategory(String pCategory);
+
 }

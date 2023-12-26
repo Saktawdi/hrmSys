@@ -2,6 +2,7 @@ package top.sakta.hrmsys.service;
 
 import top.sakta.hrmsys.domain.Employee;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,4 +22,19 @@ public interface EmployeeService {
     int updateEmployee(Employee employee);
 
     int deleteEmployee(String rID);
+
+    List<Employee> getEmployeeLikeID(String ID);
+
+    List<Employee> getEmployeesByStatus(int eStatus);
+
+    List<Employee> getEmployeesByConditions(String eL1InstID, String eL2InstID, String eL3InstID, String ePositionCategory, String ePositionName, Date StartRecodDate, Date EndRecodDate);
+
+    int updateEmployeeStatus(String eID,int eStatus);
+
+    List<Employee> getEmployeesByPositionCategoryAndPositionName(String ePositionCategory,String ePositionName);
+
+    int updateEmployeeInstitutions(String eID,String eL1InstID,String eL2InstID,String eL3InstID);
+
+    List<Employee> getEmployeesByInstitution(String InstID);
+
 }
