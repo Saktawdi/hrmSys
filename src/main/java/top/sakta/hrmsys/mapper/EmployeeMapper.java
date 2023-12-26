@@ -49,4 +49,18 @@ public interface EmployeeMapper {
 
     @Update("UPDATE employee SET eStatus=#{eStatus} WHERE eID=#{eID}")
     int updateEmployeeStatus(String eID,int eStatus);
+
+    @Select("SELECT * FROM employee WHERE ePositionCategory = #{ePositionCategory} AND ePositionName = #{ePositionName}")
+    List<Employee> getEmployeesByPositionCategoryAndPositionName(String ePositionCategory,String ePositionName);
+
+    @Update("<script> " +
+            "UPDATE employee <set> " +
+            "<if test = \"eL1InstID != null\">eL1InstID=#{eL1InstID}, </if>" +
+            "<if test = \"eL2InstID != null\">eL2InstID=#{eL2InstID}, </if>" +
+            "<if test = \"eL3InstID != null\">eL3InstID=#{eL3InstID} </if> " +
+            "</set> WHERE eID=#{eID} </script>")
+    int updateEmployeeInstitutions(String eID,String eL1InstID,String eL2InstID,String eL3InstID);
+
+    @Select("SELECT * FROM employee WHERE eL1InstID = #{InstID} OR eL2InstID = #{InstID} OR eL3InstID = #{InstID}")
+    List<Employee> getEmployeesByInstitution(String InstID);
 }

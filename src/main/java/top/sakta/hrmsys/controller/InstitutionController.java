@@ -7,8 +7,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import top.sakta.hrmsys.domain.Employee;
 import top.sakta.hrmsys.domain.Institution;
 
+import top.sakta.hrmsys.service.EmployeeService;
 import top.sakta.hrmsys.service.InstitutionService;
 
 import java.util.List;
@@ -28,6 +30,8 @@ public class InstitutionController {
     @Autowired
     private InstitutionService institutionService;
 
+    @Autowired
+    private EmployeeService employeeService;
 
     @SaCheckPermission("institution.all")
     @Operation(summary = "获取机构列表接口", description = "无参数")
@@ -72,13 +76,32 @@ public class InstitutionController {
     @Operation(summary = "删除机构接口", description = "根据机构编号iID删除机构，参数为iID")
     @DeleteMapping("/delete/{iID}")
     public SaResult deleteInstitution(@PathVariable String iID){
-        if(institutionService.getInstitutionByID(iID) == null){
+        Institution institution = institutionService.getInstitutionByID(iID);
+        if(institution == null){
             return SaResult.error("删除失败，查无此机构");
+        }
+        if(!institutionService.getInstitutionsByParent(institution.getIID()).isEmpty()){
+            return SaResult.error("删除失败，该机构有下级部门");
+        }
+        List<Employee> employees = employeeService.getEmployeesByInstitution(institution.getIID());
+        if(!employees.isEmpty()){
+            if(institution.getILevel() == 3){
+                for(Employee employee:employees){
+                    employeeService.updateEmployeeInstitutions(employee.getEID(),null,null,"N/A");
+                }
+            }else if(institution.getILevel() == 2){
+                for(Employee employee:employees) {
+                    employeeService.updateEmployeeInstitutions(employee.getEID(), null, "N/A", null);
+                }
+            }else if(institution.getILevel() == 1){
+                    for(Employee employee:employees){
+                        employeeService.updateEmployeeInstitutions(employee.getEID(),"N/A",null,null);
+                    }
+            }
         }
         institutionService.deleteInstitution(iID);
         return SaResult.ok("删除成功");
     }
-
 
     @SaCheckPermission("institution.get")
     @Operation(summary = "根据iLevel等级获取详细信息接口", description = "根据level等级获取机构，参数为iLevel")

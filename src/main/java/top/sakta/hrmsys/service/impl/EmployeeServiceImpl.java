@@ -60,5 +60,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeMapper.updateEmployeeStatus(eID,eStatus);
     }
 
+    @Override
+    public List<Employee> getEmployeesByPositionCategoryAndPositionName(String ePositionCategory, String ePositionName) {
+        return employeeMapper.getEmployeesByPositionCategoryAndPositionName(ePositionCategory,ePositionName);
+    }
 
+    @Override
+    public int updateEmployeeInstitutions(String eID, String eL1InstID, String eL2InstID, String eL3InstID) {
+        return employeeMapper.updateEmployeeInstitutions(eID,eL1InstID,eL2InstID,eL3InstID);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByInstitution(String InstID) {
+        return employeeMapper.getEmployeesByInstitution(InstID);
+    }
 }
