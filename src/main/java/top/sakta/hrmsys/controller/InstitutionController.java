@@ -109,7 +109,7 @@ public class InstitutionController {
     @GetMapping("/isParent/{iID}")
     public SaResult isParent(@PathVariable String iID) {
         List<Institution> institutions = institutionService.getInstitutionsByParent(iID);
-        if(institutions.isEmpty()) return SaResult.ok("目标ID不为父类");
-        return SaResult.ok("目标ID为父类");
+        if(institutions.isEmpty()) return SaResult.ok("目标ID不为父类").setData(false);
+        return SaResult.ok("目标ID为父类").setData(true);
     }
 }

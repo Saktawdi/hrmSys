@@ -6,6 +6,7 @@ import cn.dev33.satoken.util.SaResult;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
@@ -17,8 +18,11 @@ import top.sakta.hrmsys.service.UserService;
 
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -142,7 +146,7 @@ public class EmployeeController {
         if(employee.getEStatus() != 0){
             return SaResult.error("审核失败，该档案不是未审核状态");
         }
-        employeeService.updateEmployeeStatus(eID,0);
+        employeeService.updateEmployeeStatus(eID,1);
         return SaResult.ok("审核成功");
     }
 
@@ -162,10 +166,23 @@ public class EmployeeController {
         return SaResult.ok("审核成功");
     }
 
-    @SaCheckPermission("employee.get")
+//    @SaCheckPermission("employee.get")
     @Operation(summary = "多条件查询档案接口", description = "根据条件查询档案，参数为eL1InstID、eL2InstID、eL3InstID、ePositionCategory、ePositionName、StartRecodDate、EndRecodDate，所有参数可无")
     @PostMapping("/getByConditions")
-    public SaResult getEmployeesByConditions(String eL1InstID, String eL2InstID, String eL3InstID, String ePositionCategory, String ePositionName, @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss") Date StartRecodDate,@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss") Date EndRecodDate){
+    public SaResult getEmployeesByConditions(@RequestBody Map<String,Object> body) throws ParseException {
+        String eL1InstID = (String) body.get("eL1InstID");
+        String eL2InstID = (String) body.get("eL2InstID");
+        String eL3InstID = (String) body.get("eL3InstID");
+        String ePositionCategory = (String) body.get("ePositionCategory");
+        String ePositionName = (String) body.get("ePositionName");
+        Date StartRecodDate = null;
+        Date EndRecodDate = null;
+        if(body.get("StartRecodDate") != null){
+            StartRecodDate = DateUtils.parseDate((String) body.get("StartRecodDate"),"yyyy-MM-dd");
+        }
+        if(body.get("EndRecodDate") != null){
+            EndRecodDate = DateUtils.parseDate((String) body.get("EndRecodDate"),"yyyy-MM-dd");
+        }
         List<Employee> employees = employeeService.getEmployeesByConditions(eL1InstID,eL2InstID,eL3InstID,ePositionCategory,ePositionName,StartRecodDate,EndRecodDate);
         return SaResult.ok("查询成功").setData(employees);
     }
