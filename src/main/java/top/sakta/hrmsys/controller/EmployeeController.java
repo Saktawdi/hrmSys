@@ -168,7 +168,7 @@ public class EmployeeController {
 
     @SaCheckPermission("employee.get")
     @Operation(summary = "多条件查询档案接口", description = "根据条件查询档案，参数为eL1InstID、eL2InstID、eL3InstID、ePositionCategory、ePositionName、StartRecodDate、EndRecodDate，所有参数可无")
-    @PostMapping("/getByConditions")
+    @GetMapping("/getByConditions")
     public SaResult getEmployeesByConditions(@RequestBody Map<String,Object> body) throws ParseException {
         String eL1InstID = (String) body.get("eL1InstID");
         String eL2InstID = (String) body.get("eL2InstID");

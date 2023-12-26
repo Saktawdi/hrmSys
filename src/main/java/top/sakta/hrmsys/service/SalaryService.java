@@ -2,6 +2,7 @@ package top.sakta.hrmsys.service;
 
 import top.sakta.hrmsys.domain.Salary;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,5 +23,10 @@ public interface SalaryService {
 
     int deleteSalary(Integer sID);
 
-    List<Salary> getSalaryByStatus(String sStatus);
+    List<Salary> getSalaryByStatus(int sStatus);
+
+    int updateSalaryStatus(Integer sID,int sStatus,String uID);
+
+    List<Salary> getSalariesByConditions(Integer sID, String keyWords, String uID, Date StartRecodDate, Date EndRecodDate);
+
 }
