@@ -16,4 +16,9 @@ public class BonusServiceImpl implements BonusService {
     public int insertBonus(Bonus bonus) {
         return bonusMapper.insertBonus(bonus);
     }
+
+    @Override
+    public int updateBonus(Bonus bonus) {
+        return bonusMapper.updateBonus(bonus);
+    }
 }

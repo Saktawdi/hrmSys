@@ -18,4 +18,14 @@ public class PayrollServiceImpl implements PayrollService {
     public List<Payroll> getAllPayrolls() {
         return payrollMapper.getAllPayrolls();
     }
+
+    @Override
+    public int insertPayroll(Payroll payroll) {
+        return payrollMapper.insertPayroll(payroll);
+    }
+
+    @Override
+    public List<Payroll> getAll() {
+        return payrollMapper.getAll();
+    }
 }

@@ -3,12 +3,10 @@ package top.sakta.hrmsys.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.sakta.hrmsys.domain.Bonus;
@@ -17,15 +15,8 @@ import top.sakta.hrmsys.domain.User;
 import top.sakta.hrmsys.service.BonusService;
 import top.sakta.hrmsys.service.EmployeeService;
 import top.sakta.hrmsys.service.UserService;
-import java.text.ParseException;
 
-import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +43,7 @@ public class EmployeeController {
 
     @Autowired
     private BonusService bonusService;
+
     @SaCheckPermission("employee.all")
     @Operation(summary = "获取档案列表接口", description = "无参数")
     @GetMapping("/getAll")
