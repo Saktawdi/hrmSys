@@ -31,4 +31,10 @@ public interface EmployeeService {
 
     int updateEmployeeStatus(String eID,int eStatus);
 
+    List<Employee> getEmployeesByPositionCategoryAndPositionName(String ePositionCategory,String ePositionName);
+
+    int updateEmployeeInstitutions(String eID,String eL1InstID,String eL2InstID,String eL3InstID);
+
+    List<Employee> getEmployeesByInstitution(String InstID);
+
 }

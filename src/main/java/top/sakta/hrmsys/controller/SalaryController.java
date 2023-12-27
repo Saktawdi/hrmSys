@@ -135,11 +135,11 @@ public class SalaryController {
     }
 
     @SaCheckPermission("salary.get")
-    @Operation(summary = "根据多个查询条件获取薪资标准列表接口", description = "根据多个条件获取薪资标准，参数为ID、KeyWord、StartRecodDate、EndRecodDate")
-    @GetMapping("/getByConditions")
+    @Operation(summary = "根据多个查询条件获取薪资标准列表接口", description = "json.根据多个条件获取薪资标准，参数为sid、keyWord、StartRecodDate、EndRecodDate")
+    @PostMapping("/getByConditions")
     public SaResult getSalariesByConditions(@RequestBody Map<String,Object> body) throws ParseException {
-        Integer ID = (Integer) body.get("ID");
-        String KeyWord = (String) body.get("KeyWord");
+        Integer ID = (Integer) body.get("sid");
+        String KeyWord = (String) body.get("keyWord");
         List<User> users = null;
         if(KeyWord != null && KeyWord != ""){
            users = userService.getUserByName(KeyWord);

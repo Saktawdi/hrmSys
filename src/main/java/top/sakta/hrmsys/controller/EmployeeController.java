@@ -3,26 +3,20 @@ package top.sakta.hrmsys.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import top.sakta.hrmsys.domain.Bonus;
 import top.sakta.hrmsys.domain.Employee;
 import top.sakta.hrmsys.domain.User;
+import top.sakta.hrmsys.service.BonusService;
 import top.sakta.hrmsys.service.EmployeeService;
 import top.sakta.hrmsys.service.UserService;
 
-import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +40,9 @@ public class EmployeeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BonusService bonusService;
 
     @SaCheckPermission("employee.all")
     @Operation(summary = "获取档案列表接口", description = "无参数")
@@ -89,6 +86,9 @@ public class EmployeeController {
         User user = userService.getUserById(StpUtil.getLoginIdAsString());
         employee.setERecoders(user.getUName());
         employee.setEID(ID);
+        Bonus bonus = new Bonus();
+        bonus.setEID(ID);
+        bonusService.insertBonus(bonus);
         employeeService.insertEmployee(employee);
         return SaResult.ok("添加成功");
     }
@@ -168,13 +168,13 @@ public class EmployeeController {
 
     @SaCheckPermission("employee.get")
     @Operation(summary = "多条件查询档案接口", description = "根据条件查询档案，参数为eL1InstID、eL2InstID、eL3InstID、ePositionCategory、ePositionName、StartRecodDate、EndRecodDate，所有参数可无")
-    @GetMapping("/getByConditions")
+    @PostMapping("/getByConditions")
     public SaResult getEmployeesByConditions(@RequestBody Map<String,Object> body) throws ParseException {
-        String eL1InstID = (String) body.get("eL1InstID");
-        String eL2InstID = (String) body.get("eL2InstID");
-        String eL3InstID = (String) body.get("eL3InstID");
-        String ePositionCategory = (String) body.get("ePositionCategory");
-        String ePositionName = (String) body.get("ePositionName");
+        String eL1InstID = (String) body.get("el1InstID");
+        String eL2InstID = (String) body.get("el2InstID");
+        String eL3InstID = (String) body.get("el3InstID");
+        String ePositionCategory = (String) body.get("epositionCategory");
+        String ePositionName = (String) body.get("epositionName");
         Date StartRecodDate = null;
         Date EndRecodDate = null;
         if(body.get("StartRecodDate") != null){

@@ -103,7 +103,6 @@ public class AuthController {
         return SaResult.ok();
     }
 
-    //TODO：（菜单）权限分配
     @SaCheckPermission("auth.menu.get")
     @Operation(summary = "获取角色分配到的所有菜单",description = "参数rID")
     @GetMapping("/menu/all/{rID}")
