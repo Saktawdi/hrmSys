@@ -9,7 +9,6 @@ import top.sakta.hrmsys.domain.ScheduledSended;
 import top.sakta.hrmsys.service.PayrollService;
 import top.sakta.hrmsys.service.ScheduledSendedService;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,12 +20,35 @@ public class ScheduledTask {
     private boolean dayFlag = false;
     private boolean weekFlag = false;
     private boolean monthFlag = false;
+    private boolean testFlag = false;
 
     @Autowired
     private ScheduledSendedService scheduledSendedService;
 
     @Autowired
     private PayrollService payrollService;
+
+    @Scheduled(cron = "0/10 * * * * ?")
+    public void testExecute(){
+        if(testFlag){
+            List<Payroll> payrolls = payrollService.getPayrollsByStatus(0);
+            Date date = new Date();
+            if(!payrolls.isEmpty()){
+                for(Payroll payroll:payrolls){
+                    ScheduledSended scheduledSended = scheduledSendedService.getScheduledSendedByID(payroll.getPID());
+                    if(scheduledSended == null){
+                        scheduledSended = new ScheduledSended();
+                        scheduledSended.setPID(payroll.getPID());
+                        scheduledSended.setLastExecutionTime(date);
+                        scheduledSendedService.insertScheduledSended(scheduledSended);
+                    }else {
+                        scheduledSendedService.updateScheduledSended(scheduledSended);
+                    }
+                    payrollService.updatePayrollStatus(payroll.getPID(),1);
+                }
+            }
+        }
+    }
 
     @Scheduled(cron = "0 0 1 * * ?")
     public void dayExecute(){
@@ -52,40 +74,44 @@ public class ScheduledTask {
 
     @Scheduled(cron = "0 0 0 ? * MON")
     public void weekExecute(){
-        List<Payroll> payrolls = payrollService.getPayrollsByStatus(0);
-        Date date = new Date();
-        if(!payrolls.isEmpty()){
-            for(Payroll payroll:payrolls){
-                ScheduledSended scheduledSended = scheduledSendedService.getScheduledSendedByID(payroll.getPID());
-                if(scheduledSended == null){
-                    scheduledSended = new ScheduledSended();
-                    scheduledSended.setPID(payroll.getPID());
-                    scheduledSended.setLastExecutionTime(date);
-                    scheduledSendedService.insertScheduledSended(scheduledSended);
-                }else {
-                    scheduledSendedService.updateScheduledSended(scheduledSended);
+        if(weekFlag) {
+            List<Payroll> payrolls = payrollService.getPayrollsByStatus(0);
+            Date date = new Date();
+            if (!payrolls.isEmpty()) {
+                for (Payroll payroll : payrolls) {
+                    ScheduledSended scheduledSended = scheduledSendedService.getScheduledSendedByID(payroll.getPID());
+                    if (scheduledSended == null) {
+                        scheduledSended = new ScheduledSended();
+                        scheduledSended.setPID(payroll.getPID());
+                        scheduledSended.setLastExecutionTime(date);
+                        scheduledSendedService.insertScheduledSended(scheduledSended);
+                    } else {
+                        scheduledSendedService.updateScheduledSended(scheduledSended);
+                    }
+                    payrollService.updatePayrollStatus(payroll.getPID(), 1);
                 }
-                payrollService.updatePayrollStatus(payroll.getPID(),1);
             }
         }
     }
 
     @Scheduled(cron = "0 0 0 1 * ?")
     public void monthExecute(){
-        List<Payroll> payrolls = payrollService.getPayrollsByStatus(0);
-        Date date = new Date();
-        if(!payrolls.isEmpty()){
-            for(Payroll payroll:payrolls){
-                ScheduledSended scheduledSended = scheduledSendedService.getScheduledSendedByID(payroll.getPID());
-                if(scheduledSended == null){
-                    scheduledSended = new ScheduledSended();
-                    scheduledSended.setPID(payroll.getPID());
-                    scheduledSended.setLastExecutionTime(date);
-                    scheduledSendedService.insertScheduledSended(scheduledSended);
-                }else {
-                    scheduledSendedService.updateScheduledSended(scheduledSended);
+        if(monthFlag) {
+            List<Payroll> payrolls = payrollService.getPayrollsByStatus(0);
+            Date date = new Date();
+            if (!payrolls.isEmpty()) {
+                for (Payroll payroll : payrolls) {
+                    ScheduledSended scheduledSended = scheduledSendedService.getScheduledSendedByID(payroll.getPID());
+                    if (scheduledSended == null) {
+                        scheduledSended = new ScheduledSended();
+                        scheduledSended.setPID(payroll.getPID());
+                        scheduledSended.setLastExecutionTime(date);
+                        scheduledSendedService.insertScheduledSended(scheduledSended);
+                    } else {
+                        scheduledSendedService.updateScheduledSended(scheduledSended);
+                    }
+                    payrollService.updatePayrollStatus(payroll.getPID(), 1);
                 }
-                payrollService.updatePayrollStatus(payroll.getPID(),1);
             }
         }
     }
@@ -114,8 +140,17 @@ public class ScheduledTask {
         this.monthFlag = false;
     }
 
+    public void testStart(){
+        this.testFlag = true;
+    }
+
+    public void testStop(){
+        this.testFlag = false;
+    }
+
     public Map<String,Boolean> getAll(){
         Map<String,Boolean> booleans = new HashMap<>();
+        booleans.put("testFlag",testFlag);
         booleans.put("dayFlag",dayFlag);
         booleans.put("weekFlag",weekFlag);
         booleans.put("monthFlag",monthFlag);

@@ -62,10 +62,26 @@ public class TaskController {
     }
 
     @SaCheckPermission("bonus.update")
-    @Operation(summary = "开启每月定时任务接口", description = "无参数")
+    @Operation(summary = "关闭每月定时任务接口", description = "无参数")
     @PutMapping("/monthStop")
     public SaResult monthStop(){
         scheduledTask.monthStop();
+        return SaResult.ok("每月定时任务关闭成功");
+    }
+
+    @SaCheckPermission("bonus.update")
+    @Operation(summary = "开启测试定时任务接口", description = "无参数")
+    @PutMapping("/testStart")
+    public SaResult testStart(){
+        scheduledTask.testStart();
+        return SaResult.ok("每月定时任务开启成功");
+    }
+
+    @SaCheckPermission("bonus.update")
+    @Operation(summary = "关闭测试定时任务接口", description = "无参数")
+    @PutMapping("/testStop")
+    public SaResult testStop(){
+        scheduledTask.testStop();
         return SaResult.ok("每月定时任务关闭成功");
     }
 
