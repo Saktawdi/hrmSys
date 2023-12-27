@@ -16,7 +16,7 @@ import java.util.List;
 
 @Mapper
 public interface PayrollMapper {
-    @Select("SELECT sL3InstID pL3InstID,(SELECT iName FROM institution WHERE iID = eL1InstID) pL1InstName,(SELECT iName FROM institution WHERE iID = eL2InstID) pL2InstName,iName pL3InstName,count(eID) pCount,SUM(sBasic) pSalarySum FROM employee,salary,institution WHERE eL3InstID = iID AND eSalary = sID GROUP BY eL3InstID;")
+    @Select("SELECT eL3InstID pL3InstID,(SELECT iName FROM institution WHERE iID = eL1InstID) pL1InstName,(SELECT iName FROM institution WHERE iID = eL2InstID) pL2InstName,iName pL3InstName,count(eID) pCount,SUM(sBasic) pSalarySum FROM employee,salary,institution WHERE eL3InstID = iID AND eSalary = sID GROUP BY eL3InstID;")
     List<Payroll> getAllPayrolls();
 
     @Update("INSERT INTO payroll (pID,pL3InstID,pL1InstName,pL2InstName,pL3InstName,pCount,pSalarySum,pStatus,pMaker,pPayslips) VALUES (#{pID},#{pL3InstID},#{pL1InstName},#{pL2InstName},#{pL3InstName},#{pCount},#{pSalarySum},#{pStatus},#{pMaker},#{pPayslips})")
