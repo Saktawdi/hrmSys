@@ -28,4 +28,19 @@ public class PayrollServiceImpl implements PayrollService {
     public List<Payroll> getAll() {
         return payrollMapper.getAll();
     }
+
+    @Override
+    public List<Payroll> getPayrollsByStatus(int pStatus) {
+        return payrollMapper.getPayrollsByStatus(pStatus);
+    }
+
+    @Override
+    public int updatePayrollStatus(int pID, int pStatus) {
+        return payrollMapper.updatePayrollStatus(pID,pStatus);
+    }
+
+    @Override
+    public int deletePayroll(int pID) {
+        return payrollMapper.deletePayroll(pID);
+    }
 }

@@ -18,4 +18,10 @@ public interface PayrollService {
 
     List<Payroll> getAll();
 
+    List<Payroll> getPayrollsByStatus(int pStatus);
+
+    int updatePayrollStatus(int pID,int pStatus);
+
+    int deletePayroll(int pID);
+
 }

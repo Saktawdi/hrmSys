@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.sakta.hrmsys.domain.Bonus;
-import top.sakta.hrmsys.domain.Payroll;
 import top.sakta.hrmsys.service.BonusService;
 
 import java.util.List;
@@ -21,16 +20,26 @@ public class BonusController {
     private BonusService bonusService;
 
     @SaCheckPermission("bonus.update")
-    @Operation(summary = "更新奖金接口", description = "json数据，看奖金实体类，bID参数可无")
+    @Operation(summary = "根据奖金列表更新奖金接口", description = "json数据，奖金实体列表，看奖金实体类，bID参数可无")
     @PutMapping("/update")
     public SaResult updateBonuses(@Validated @RequestBody List<Bonus> bonuses){
         if(bonuses == null){
-            return SaResult.error("登记失败，奖金为空");
+            return SaResult.error("登记失败，奖金列表为空");
         }
         for(Bonus bonus:bonuses){
-            System.out.println(bonus);
             bonusService.updateBonus(bonus);
         }
+        return SaResult.ok("登记成功");
+    }
+
+    @SaCheckPermission("bonus.update")
+    @Operation(summary = "更新奖金接口", description = "json数据，看奖金实体类，bID参数可无")
+    @PutMapping("/updateBonus")
+    public SaResult updateBonus(@Validated @RequestBody Bonus bonus){
+        if(bonus == null){
+            return SaResult.error("登记失败，奖金实体为空");
+        }
+        bonusService.updateBonus(bonus);
         return SaResult.ok("登记成功");
     }
 

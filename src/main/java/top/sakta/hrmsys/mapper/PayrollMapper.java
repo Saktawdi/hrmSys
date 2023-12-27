@@ -1,5 +1,6 @@
 package top.sakta.hrmsys.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -24,4 +25,13 @@ public interface PayrollMapper {
 
     @Select("SELECT * FROM payroll")
     List<Payroll> getAll();
+
+    @Select("SELECT * FROM payroll WHERE pStatus = #{pStatus}")
+    List<Payroll> getPayrollsByStatus(int pStatus);
+
+    @Update("UPDATE payroll SET pStatus = #{pStatus} WHERE pID = #{pID}")
+    int updatePayrollStatus(int pID,int pStatus);
+
+    @Delete("DELETE FROM payroll WHERE pID = #{pID}")
+    int deletePayroll(int pID);
 }
