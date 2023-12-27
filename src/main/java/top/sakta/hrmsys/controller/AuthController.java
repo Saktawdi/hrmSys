@@ -140,8 +140,8 @@ public class AuthController {
         return SaResult.ok();
     }
 
-    @SaCheckPermission("auth.delete")
-    @Operation(summary = "删除用户角色",description = "参数rID,mID")
+    @SaCheckPermission("auth.menu.delete")
+    @Operation(summary = "删除用户菜单",description = "参数rID,mID")
     @DeleteMapping ("/menu/delete/{rID}/{mID}")
     public SaResult deleteMenu(@PathVariable Integer rID,@PathVariable Integer mID){
         MenuRole menuRole = menuRoleService.getMenuRoleByMidAndRId(mID,rID);

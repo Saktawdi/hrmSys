@@ -21,7 +21,7 @@ public class ScheduledSendedController {
     @Autowired
     private ScheduledSendedServiceImpl scheduledSendedService;
 
-    @SaCheckPermission("bonus.get")
+    @SaCheckPermission("bonus.all")
     @Operation(summary = "获取所有定时任务执行记录", description = "无参数")
     @GetMapping("/all")
     public SaResult getAllScheduledSendeds() {
