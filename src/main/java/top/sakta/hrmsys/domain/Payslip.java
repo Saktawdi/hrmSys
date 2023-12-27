@@ -14,6 +14,9 @@ public class Payslip {
     @Schema(description = "档案编号eID")
     private String eName;
 
+    @Schema(description = "基本工资")
+    private double sBasic;
+
     @Schema(description = "交通补助")
     private double sTransport;
 

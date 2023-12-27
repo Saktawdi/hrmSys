@@ -6,6 +6,8 @@ import top.sakta.hrmsys.domain.Bonus;
 import top.sakta.hrmsys.mapper.BonusMapper;
 import top.sakta.hrmsys.service.BonusService;
 
+import java.util.List;
+
 @Service
 public class BonusServiceImpl implements BonusService {
 
@@ -20,5 +22,10 @@ public class BonusServiceImpl implements BonusService {
     @Override
     public int updateBonus(Bonus bonus) {
         return bonusMapper.updateBonus(bonus);
+    }
+
+    @Override
+    public List<Bonus> getAllBonuses() {
+        return bonusMapper.getAllBonuses();
     }
 }

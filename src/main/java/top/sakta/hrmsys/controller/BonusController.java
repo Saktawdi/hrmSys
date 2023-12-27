@@ -13,8 +13,8 @@ import top.sakta.hrmsys.service.BonusService;
 
 import java.util.List;
 
-@RestController
 @RequestMapping("/api/v1/bonus")
+@RestController
 @Tag(name = "奖金接口模块")
 public class BonusController {
     @Autowired
@@ -28,8 +28,15 @@ public class BonusController {
             return SaResult.error("登记失败，奖金为空");
         }
         for(Bonus bonus:bonuses){
+            System.out.println(bonus);
             bonusService.updateBonus(bonus);
         }
         return SaResult.ok("登记成功");
+    }
+
+    @GetMapping("/get")
+    public SaResult getAll(){
+        List<Bonus> bonuses = bonusService.getAllBonuses();
+        return SaResult.ok("登记成功").setData(bonuses);
     }
 }
