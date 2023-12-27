@@ -140,6 +140,21 @@ public class AuthController {
         return SaResult.ok();
     }
 
+    @SaCheckPermission("auth.menu.delete")
+    @Operation(summary = "删除角色菜单",description = "参数rID,mID")
+    @DeleteMapping ("/menu/delete/{rID}/{mID}")
+    public SaResult deleteRole(@PathVariable Integer rID,@PathVariable Integer mID){
+        MenuRole menuRole = menuRoleService.getMenuRoleByMidAndRId(mID,rID);
+        if (menuRole == null){
+            return SaResult.error("数据不存在");
+        }
+        int result = menuRoleService.deleteMenuRole(menuRole.getId());
+        if (result == 0){
+            return SaResult.error("删除失败");
+        }
+        return SaResult.ok();
+    }
+
     @SaCheckPermission("auth.menu.update")
     @Operation(summary = "修改角色菜单",description = "json数据，参数rid,mid必须")
     @PutMapping("/menu/update")
