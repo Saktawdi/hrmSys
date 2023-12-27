@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import top.sakta.hrmsys.domain.Bonus;
 import top.sakta.hrmsys.domain.Employee;
 import top.sakta.hrmsys.domain.User;
+import top.sakta.hrmsys.service.BonusService;
 import top.sakta.hrmsys.service.EmployeeService;
 import top.sakta.hrmsys.service.UserService;
+import java.text.ParseException;
 
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -47,6 +50,8 @@ public class EmployeeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BonusService bonusService;
     @SaCheckPermission("employee.all")
     @Operation(summary = "获取档案列表接口", description = "无参数")
     @GetMapping("/getAll")
@@ -89,6 +94,9 @@ public class EmployeeController {
         User user = userService.getUserById(StpUtil.getLoginIdAsString());
         employee.setERecoders(user.getUName());
         employee.setEID(ID);
+        Bonus bonus = new Bonus();
+        bonus.setEID(ID);
+        bonusService.insertBonus(bonus);
         employeeService.insertEmployee(employee);
         return SaResult.ok("添加成功");
     }

@@ -1,10 +1,12 @@
 package top.sakta.hrmsys.mapper;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import top.sakta.hrmsys.domain.Bonus;
 
+@Mapper
 public interface BonusMapper {
     @Select("SELECT * FROM bonus WHERE eID = #{eID}")
     Bonus getBonusByUID(String eID);
