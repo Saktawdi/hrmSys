@@ -1,53 +1,52 @@
-# hrmSys
-Demo for Human Resource Management System
+# 人事管理系统 (HRMS)
 
-# Human Resource Management System (HRMS)
+## 概述
 
-## Overview
+通过GDOU实验性课程作业，搭建的前后端分离的项目，具有系统权限管理、人力资源档案管理、薪酬管理功能。
+权限细化到按钮级别。
+前端：https://github.com/Saktawdi/hrmSys-web-ui
 
-GDOU from the experimental course assignments, with the system rights management, human resources file management, compensation management.
-Permissions are fine-grained down to the button level.
+## 特性
+依赖少，入门简单
 
-## Features
+- **Spring Boot**: 利用Spring Boot框架开发强大且可扩展的HRMS。
+- **MyBatis**: 使用MyBatis与MySQL数据库无缝集成，确保高效的数据管理。
+- **Lombok**: 利用Lombok注解提高代码可读性和简洁性，减少样板代码。
+- **Druid**: 利用Druid的连接池功能进行优化的数据库交互。
+- **Knife4j**: 使用Knife4j实现简单交互的API文档，简化对HRMS API的理解。
+- **Sa-Token**: 使用Sa-Token实现安全可定制的身份验证和授权。
+- **JUnit**: 利用JUnit确保代码的可靠性，进行全面的测试。
 
-- **Spring Boot**: Leverage the power of the Spring Boot framework to develop a robust and scalable HRMS.
-- **MyBatis**: Utilize MyBatis for seamless integration with a MySQL database, ensuring efficient data management.
-- **Lombok**: Enhance code readability and conciseness with Lombok annotations, reducing boilerplate code.
-- **Druid**: Benefit from the connection pooling capabilities of Druid for optimized database interactions.
-- **Knife4j**: Enable easy and interactive API documentation using Knife4j, simplifying the understanding of your HRMS APIs.
-- **Sa-Token**: Implement secure and customizable authentication and authorization with Sa-Token.
-- **JUnit**: Ensure code reliability with JUnit for comprehensive testing.
+## 入门指南
 
-## Getting Started
+1. **先决条件**: 确保您的系统上安装了Java和Maven。
 
-1. **Prerequisites**: Make sure you have Java and Maven installed on your system.
-
-2. **Clone the Repository**: 
+2. **克隆仓库**:
     ```bash
     git clone https://github.com/your-username/hrms.git
     cd hrms
     ```
 
-3. **Database Setup**: Configure your MySQL database settings in the `application.properties` file.
+3. **数据库设置**: 在`application.properties`文件中配置您的MySQL数据库设置。
 
-4. **Build and Run**: 
+4. **构建和运行**: 
     ```bash
     mvn clean install
     java -jar target/hrms-1.0.0.jar
     ```
 
-5. **Access the API Documentation**: Visit [http://localhost:8080/doc.html](http://localhost:8080/doc.html) for the interactive API documentation.
+5. **访问API文档**: 访问 [http://localhost:8080/doc.html](http://localhost:8080/doc.html) 查看交互式API文档。
 
-## Contributing
+## 贡献
 
-We welcome contributions from the community. Feel free to open issues, submit pull requests, or provide feedback.
+我们欢迎社区的贡献。请随时提出问题，提交拉取请求或提供反馈。
 
-## License
+## 许可证
 
-This HRMS project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+该HRMS项目采用MIT许可证授权 - 有关详细信息，请参阅[LICENSE](LICENSE)文件。
 
-## Acknowledgments
+## 致谢
 
-Special thanks to the developers and contributors who have dedicated their time and effort to make this HRMS project possible.
+特别感谢那些付出时间和精力使这个HRMS项目成为可能的开发人员和贡献者。
 
-Happy coding! 🚀
+愉快的编码！🚀
