@@ -6,18 +6,16 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import top.sakta.hrmsys.domain.Bonus;
 import top.sakta.hrmsys.domain.Payroll;
 import top.sakta.hrmsys.service.BonusService;
 
 import java.util.List;
 
+@RestController
 @RequestMapping("/api/v1/bonus")
-@Tag(name = "档案接口模块")
+@Tag(name = "奖金接口模块")
 public class BonusController {
     @Autowired
     private BonusService bonusService;

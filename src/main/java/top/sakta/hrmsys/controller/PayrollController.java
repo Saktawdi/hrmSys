@@ -52,4 +52,6 @@ public class PayrollController {
         List<Payroll> payrolls = payrollService.getAll();
         return SaResult.ok("查询成功").setData(payrolls);
     }
+
+
 }
