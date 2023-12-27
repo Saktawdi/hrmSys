@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.sakta.hrmsys.domain.Payroll;
+import top.sakta.hrmsys.domain.ScheduledSended;
 import top.sakta.hrmsys.service.PayrollService;
+import top.sakta.hrmsys.service.ScheduledSendedService;
 
 import java.util.List;
 
@@ -27,6 +29,9 @@ public class PayrollController {
 
     @Autowired
     private PayrollService payrollService;
+
+    @Autowired
+    private ScheduledSendedService scheduledSendedService;
 
     @SaCheckPermission("bonus.get")
     @Operation(summary = "获取薪酬发放单接口", description = "无参数")
@@ -82,4 +87,11 @@ public class PayrollController {
         return SaResult.ok("删除成功");
     }
 
+    @SaCheckPermission("bonus.get")
+    @Operation(summary = "根据状态获取薪酬发放单接口", description = "无参数")
+    @GetMapping("/getAllScheduledSendeds")
+    public SaResult getAllScheduledSendeds(){
+        List<ScheduledSended> scheduledSendeds = scheduledSendedService.getAllScheduledSendeds();
+        return SaResult.ok("获取成功").setData(scheduledSendeds);
+    }
 }

@@ -43,9 +43,11 @@ public class BonusController {
         return SaResult.ok("登记成功");
     }
 
+    @SaCheckPermission("bonus.get")
+    @Operation(summary = "获取奖金列表接口" ,description = "无参数")
     @GetMapping("/get")
     public SaResult getAll(){
         List<Bonus> bonuses = bonusService.getAllBonuses();
-        return SaResult.ok("登记成功").setData(bonuses);
+        return SaResult.ok("获取成功").setData(bonuses);
     }
 }
