@@ -5,10 +5,7 @@ import cn.dev33.satoken.util.SaResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.sakta.hrmsys.task.ScheduledTask;
 
 import java.util.Map;
@@ -22,67 +19,39 @@ public class TaskController {
     private ScheduledTask scheduledTask;
 
     @SaCheckPermission("bonus.update")
-    @Operation(summary = "开启每日定时任务接口", description = "无参数")
-    @PutMapping("/dayStart")
-    public SaResult dayStart(){
-        scheduledTask.dayStart();
-        return SaResult.ok("每日定时任务开启成功");
+    @Operation(summary = "根据名称启动固定任务接口", description = "参数为key")
+    @PutMapping("/start/{key}")
+    public SaResult startTask(@PathVariable String key){
+        if(key.equals("testFlag")){
+            scheduledTask.testStart();
+        }else if(key.equals("dayFlag")){
+            scheduledTask.dayStart();
+        }else if(key.equals("weekFlag")){
+            scheduledTask.weekStart();
+        }else if(key.equals("monthFlag")){
+            scheduledTask.monthStart();
+        }else{
+            return SaResult.error("启动失败");
+        }
+        return SaResult.ok("启动成功");
     }
 
     @SaCheckPermission("bonus.update")
-    @Operation(summary = "关闭每日定时任务接口", description = "无参数")
-    @PutMapping("/dayStop")
-    public SaResult dayStop(){
-        scheduledTask.dayStop();
-        return SaResult.ok("每日定时任务关闭成功");
-    }
-
-    @SaCheckPermission("bonus.update")
-    @Operation(summary = "开启每周定时任务接口", description = "无参数")
-    @PutMapping("/weekStart")
-    public SaResult weekStart(){
-        scheduledTask.weekStart();
-        return SaResult.ok("每周定时任务开启成功");
-    }
-
-    @SaCheckPermission("bonus.update")
-    @Operation(summary = "关闭每周定时任务接口", description = "无参数")
-    @PutMapping("/weekStop")
-    public SaResult weekStop(){
-        scheduledTask.weekStop();
-        return SaResult.ok("每周定时任务关闭成功");
-    }
-
-    @SaCheckPermission("bonus.update")
-    @Operation(summary = "开启每月定时任务接口", description = "无参数")
-    @PutMapping("/monthStart")
-    public SaResult monthStart(){
-        scheduledTask.monthStart();
-        return SaResult.ok("每月定时任务开启成功");
-    }
-
-    @SaCheckPermission("bonus.update")
-    @Operation(summary = "关闭每月定时任务接口", description = "无参数")
-    @PutMapping("/monthStop")
-    public SaResult monthStop(){
-        scheduledTask.monthStop();
-        return SaResult.ok("每月定时任务关闭成功");
-    }
-
-    @SaCheckPermission("bonus.update")
-    @Operation(summary = "开启测试定时任务接口", description = "无参数")
-    @PutMapping("/testStart")
-    public SaResult testStart(){
-        scheduledTask.testStart();
-        return SaResult.ok("每月定时任务开启成功");
-    }
-
-    @SaCheckPermission("bonus.update")
-    @Operation(summary = "关闭测试定时任务接口", description = "无参数")
-    @PutMapping("/testStop")
-    public SaResult testStop(){
-        scheduledTask.testStop();
-        return SaResult.ok("每月定时任务关闭成功");
+    @Operation(summary = "根据名称关闭固定任务接口", description = "参数为key")
+    @PutMapping("/stop/{key}")
+    public SaResult stopTask(@PathVariable String key){
+        if(key.equals("testFlag")){
+            scheduledTask.testStop();
+        }else if(key.equals("dayFlag")){
+            scheduledTask.dayStop();
+        }else if(key.equals("weekFlag")){
+            scheduledTask.weekStop();
+        }else if(key.equals("monthFlag")){
+            scheduledTask.monthStop();
+        }else{
+            return SaResult.error("关闭失败");
+        }
+        return SaResult.ok("关闭成功");
     }
 
     @SaCheckPermission("bonus.get")
