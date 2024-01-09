@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2023-12-27 19:56:14
+-- 生成日期： 2024-01-09 20:24:04
 -- 服务器版本： 5.6.50-log
 -- PHP 版本： 7.2.33
 
@@ -43,7 +43,11 @@ INSERT INTO `bonus` (`bID`, `bReward`, `bReduce`, `eID`) VALUES
 (3, '100.00', '0.00', '202310111101'),
 (4, '500.00', '0.00', '202310111102'),
 (5, '0.00', '0.00', '202310111201'),
-(6, '0.00', '0.00', '202310111202');
+(6, '0.00', '0.00', '202310111202'),
+(7, '0.00', '0.00', '202320222101'),
+(8, '0.00', '0.00', '202320222201'),
+(9, '5000.00', '0.00', '202310111103'),
+(10, '0.00', '0.00', '202310111104');
 
 -- --------------------------------------------------------
 
@@ -97,10 +101,9 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`eID`, `eL1InstID`, `eL2InstID`, `eL3InstID`, `ePositionCategory`, `ePositionName`, `eJobTitle`, `eName`, `eGender`, `eAge`, `eEmail`, `eFixedPhone`, `eCellPhone`, `eQQ`, `eAddress`, `ePostcode`, `eBirthday`, `eBirthplace`, `eAvatar`, `eIDcard`, `eSSC`, `eCountry`, `eEthnic`, `eReligion`, `ePolitical`, `eEducation`, `eMajor`, `eSalary`, `eBankName`, `eBankAccount`, `eHobby`, `eSpecicalty`, `eResume`, `eFamily`, `eRemarks`, `eRecoders`, `eRecodDate`, `eStatus`) VALUES
-('202310111101', '10', '11', '111', '技术', '软件工程师', 'Java后端工程师', '黄睿', '男', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://www.freeimg.cn/i/2023/12/25/65894055eed2f.jpg', NULL, NULL, NULL, '汉', NULL, NULL, '本科', NULL, '9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'tests', '2023-12-27 17:53:52', 1),
-('202310111102', '10', '11', '111', '技术', '软件工程师', '全栈工程师', '石晨锋', '男', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://www.freeimg.cn/i/2023/12/27/658bf43f8cae5.png', NULL, NULL, NULL, '汉', NULL, NULL, '本科', NULL, '9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'tests', '2023-12-27 17:54:21', 1),
-('202310111201', '10', '11', '112', '技术', '测试工程师', '接口测试', '毛孝明', '男', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://www.freeimg.cn/i/2023/12/26/658a4bf73d382.jpg', NULL, NULL, NULL, '汉', NULL, NULL, '本科', NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'tests', '2023-12-27 17:57:42', 1),
-('202310111202', '10', '11', '112', '技术', '测试工程师', '前端页面测试', '许蓝琪', '女', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://www.freeimg.cn/i/2023/12/27/658bf52ad39df.jpg', NULL, NULL, NULL, '汉', NULL, NULL, '本科', NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'tests', '2023-12-27 17:58:12', 0);
+('202310111103', '10', '11', '111', '管理', '总经理', '产品经理', 'ces', '男', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://www.freeimg.cn/i/2023/12/26/658a4bf73d382.jpg', NULL, NULL, NULL, '汉', NULL, NULL, '本科', NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, '1111', 'tests', '2023-12-28 09:00:49', 1),
+('202310111104', '10', '11', '111', '管理', '总经理', '666', '比上次', '男', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '汉', NULL, NULL, '本科', NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '人事专员', '2023-12-28 09:08:11', -1),
+('202320222101', '20', '22', '221', '财务', '财务分析师', '初级', '章鱼', '男', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://www.freeimg.cn/i/2023/12/27/658c18f129f3b.png', NULL, NULL, NULL, '汉', NULL, NULL, '本科', NULL, '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'tests', '2023-12-27 20:30:51', 0);
 
 -- --------------------------------------------------------
 
@@ -205,7 +208,13 @@ INSERT INTO `menu` (`id`, `parentId`, `mCode`, `mName`, `sort`) VALUES
 (52, 51, 'bonus.get', '获取', 0),
 (53, 51, 'bonus.update', '更新', 0),
 (54, 51, 'bonus.add', '新增', 0),
-(55, 51, 'bonus.delete', '发放删除', 0);
+(55, 51, 'bonus.delete', '发放删除', 0),
+(56, 51, 'bonus.all', '获得所有发放记录', 0),
+(57, 12, 'auth.menu.get', '权限菜单', 0),
+(58, 12, 'auth.menu.add', '权限增加', 0),
+(59, 12, 'auth.menu.delete', '权限菜单删除', 0),
+(60, 12, 'auth.menu.update', '权限菜单更新', 0),
+(61, 12, 'auth.menu.*', '权限菜单管理', 0);
 
 -- --------------------------------------------------------
 
@@ -224,17 +233,6 @@ CREATE TABLE `menu_role` (
 --
 
 INSERT INTO `menu_role` (`id`, `rID`, `mID`) VALUES
-(1, 1, 1),
-(2, 1, 6),
-(3, 1, 12),
-(4, 3, 6),
-(5, 3, 12),
-(6, 3, 17),
-(7, 3, 23),
-(8, 3, 29),
-(9, 3, 35),
-(10, 3, 41),
-(11, 3, 1),
 (12, 1, 2),
 (13, 1, 4),
 (14, 1, 5),
@@ -292,18 +290,9 @@ INSERT INTO `menu_role` (`id`, `rID`, `mID`) VALUES
 (66, 1, 48),
 (67, 1, 47),
 (68, 1, 50),
-(69, 3, 2),
-(70, 3, 5),
-(71, 3, 4),
 (72, 3, 3),
 (73, 3, 7),
 (74, 3, 11),
-(75, 3, 8),
-(76, 3, 10),
-(77, 3, 15),
-(78, 3, 9),
-(79, 3, 14),
-(80, 3, 13),
 (81, 3, 16),
 (82, 3, 22),
 (83, 3, 20),
@@ -336,7 +325,36 @@ INSERT INTO `menu_role` (`id`, `rID`, `mID`) VALUES
 (110, 3, 52),
 (111, 3, 53),
 (112, 3, 54),
-(113, 3, 55);
+(113, 3, 55),
+(114, 1, 53),
+(115, 1, 52),
+(116, 1, 55),
+(117, 1, 54),
+(118, 11, 43),
+(119, 11, 46),
+(121, 11, 53),
+(122, 11, 52),
+(123, 11, 54),
+(124, 11, 55),
+(126, 11, 44),
+(127, 11, 45),
+(128, 12, 53),
+(129, 12, 43),
+(130, 12, 52),
+(131, 12, 54),
+(132, 12, 50),
+(133, 12, 46),
+(134, 12, 55),
+(139, 11, 42),
+(140, 3, 56),
+(145, 3, 57),
+(146, 1, 57),
+(147, 1, 58),
+(148, 1, 60),
+(149, 1, 61),
+(150, 1, 59),
+(151, 1, 56),
+(152, 8, 37);
 
 -- --------------------------------------------------------
 
@@ -356,13 +374,6 @@ CREATE TABLE `payroll` (
   `pMaker` varchar(12) DEFAULT NULL,
   `pPayslips` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- 转存表中的数据 `payroll`
---
-
-INSERT INTO `payroll` (`pID`, `pL1InstName`, `pL2InstName`, `pL3InstName`, `pCount`, `pSalarySum`, `pL3InstID`, `pStatus`, `pMaker`, `pPayslips`) VALUES
-(12, '总公司', '人力资源部', '开发组', 2, '24000.00', 111, 1, '123456', '[{\"stransport\":150,\"slunch\":150,\"scommunicate\":150,\"spension\":960,\"smedical\":243,\"sunemployment\":60,\"shouse\":960,\"sbasic\":12000,\"breward\":100,\"breduce\":0,\"eid\":\"202310111101\",\"ename\":\"黄睿\"},{\"stransport\":150,\"slunch\":150,\"scommunicate\":150,\"spension\":960,\"smedical\":243,\"sunemployment\":60,\"shouse\":960,\"sbasic\":12000,\"breward\":500,\"breduce\":0,\"eid\":\"202310111102\",\"ename\":\"石晨锋\"}]');
 
 -- --------------------------------------------------------
 
@@ -418,7 +429,9 @@ INSERT INTO `role` (`rID`, `rCode`, `rName`) VALUES
 (2, 'employee', '职员'),
 (3, 'test', '测试人员'),
 (8, 'Personnel Commissioner', '人事专员'),
-(9, 'Personnel Manager', '人事经理');
+(9, 'Personnel Manager', '人事经理'),
+(11, 'Compensation Specialist', '薪酬专员'),
+(12, '12', '薪酬经理');
 
 -- --------------------------------------------------------
 
@@ -455,7 +468,42 @@ INSERT INTO `salary` (`sID`, `sName`, `sBasic`, `sTransport`, `sLunch`, `sCommun
 (3, 'T3', '7000.00', '0.00', '0.00', '0.00', '560.00', '143.00', '35.00', '560.00', '123456', '2023-12-27 11:48:16', '123456', '123456', 1, NULL),
 (4, 'T4', '8000.00', '0.00', '0.00', '0.00', '640.00', '163.00', '40.00', '640.00', '123456', '2023-12-27 11:48:36', '123456', NULL, 0, NULL),
 (5, 'S1', '10000.00', '100.00', '100.00', '100.00', '800.00', '203.00', '50.00', '800.00', '123456', '2023-12-27 12:53:38', '123456', '123456', 1, '我觉得很好'),
-(9, 'S2', '12000.00', '150.00', '150.00', '150.00', '960.00', '243.00', '60.00', '960.00', '123456', '2023-12-27 15:50:50', '123456', '123456', 1, NULL);
+(9, 'S2', '12000.00', '150.00', '150.00', '150.00', '960.00', '243.00', '60.00', '960.00', '123456', '2023-12-27 15:50:50', '123456', '123456', 1, NULL),
+(10, 'T4', '8000.00', '100.00', '10.00', '10.00', '640.00', '163.00', '40.00', '640.00', '123', '2023-12-27 21:08:40', 'mao', '8000', 1, NULL),
+(11, 'S3', '15000.00', '200.00', '0.00', '220.00', '1200.00', '303.00', '75.00', '1200.00', '123456', '2023-12-28 09:02:42', '123456', '123456', 1, '很好'),
+(12, '111', '0.00', '0.00', '0.00', '0.00', '0.00', '3.00', '0.00', '0.00', '123456', '2023-12-28 09:16:51', '111', NULL, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `scheduled_sended`
+--
+
+CREATE TABLE `scheduled_sended` (
+  `pID` int(11) NOT NULL COMMENT '工资条ID',
+  `lastExecutionTime` date DEFAULT NULL COMMENT '最近一次执行时间，记录定时任务的最后执行时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 转存表中的数据 `scheduled_sended`
+--
+
+INSERT INTO `scheduled_sended` (`pID`, `lastExecutionTime`) VALUES
+(19, '2023-12-28'),
+(20, '2023-12-28'),
+(21, '2023-12-28'),
+(22, '2023-12-28'),
+(23, '2023-12-28'),
+(26, '2023-12-28'),
+(27, '2023-12-28'),
+(28, '2023-12-28'),
+(29, '2023-12-28'),
+(30, '2023-12-28'),
+(31, '2023-12-28'),
+(32, '2023-12-28'),
+(33, '2023-12-28'),
+(34, '2023-12-28'),
+(35, '2023-12-28');
 
 -- --------------------------------------------------------
 
@@ -474,11 +522,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uID`, `uName`, `uPassword`) VALUES
-('1', 'sakta', 'D41D8CD98F00B204E9800998ECF8427E'),
+('1', 'sakta', '2EF6A6E4B3CAA4456C4326E912313EEC'),
+('10000', '薪酬经理', 'E10ADC3949BA59ABBE56E057F20F883E'),
 ('10086', '人事专员', 'E10ADC3949BA59ABBE56E057F20F883E'),
 ('1008611', '人事经理', 'E10ADC3949BA59ABBE56E057F20F883E'),
 ('123456', 'tests', 'E10ADC3949BA59ABBE56E057F20F883E'),
 ('666', '点众对回', 'E10ADC3949BA59ABBE56E057F20F883E'),
+('8000', '薪酬专员', 'E10ADC3949BA59ABBE56E057F20F883E'),
+('83', '所而表且风立', '94C43BD3CD0C5ACB73BC2AF10573B20C'),
 ('88', '率位育', '8F0FF08573444847E3D90AD9B1891482');
 
 -- --------------------------------------------------------
@@ -503,7 +554,9 @@ INSERT INTO `user_role` (`id`, `uID`, `rID`) VALUES
 (11, '123456', 3),
 (12, '88', 7),
 (13, '10086', 8),
-(14, '1008611', 9);
+(14, '1008611', 9),
+(15, '8000', 11),
+(16, '10000', 12);
 
 --
 -- 转储表的索引
@@ -565,6 +618,12 @@ ALTER TABLE `salary`
   ADD PRIMARY KEY (`sID`);
 
 --
+-- 表的索引 `scheduled_sended`
+--
+ALTER TABLE `scheduled_sended`
+  ADD PRIMARY KEY (`pID`);
+
+--
 -- 表的索引 `user`
 --
 ALTER TABLE `user`
@@ -585,25 +644,25 @@ ALTER TABLE `user_role`
 -- 使用表AUTO_INCREMENT `bonus`
 --
 ALTER TABLE `bonus`
-  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- 使用表AUTO_INCREMENT `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键', AUTO_INCREMENT=56;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键', AUTO_INCREMENT=62;
 
 --
 -- 使用表AUTO_INCREMENT `menu_role`
 --
 ALTER TABLE `menu_role`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键', AUTO_INCREMENT=114;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键', AUTO_INCREMENT=153;
 
 --
 -- 使用表AUTO_INCREMENT `payroll`
 --
 ALTER TABLE `payroll`
-  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT COMMENT '薪酬发放单编号', AUTO_INCREMENT=19;
+  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT COMMENT '薪酬发放单编号', AUTO_INCREMENT=36;
 
 --
 -- 使用表AUTO_INCREMENT `position`
@@ -615,19 +674,19 @@ ALTER TABLE `position`
 -- 使用表AUTO_INCREMENT `role`
 --
 ALTER TABLE `role`
-  MODIFY `rID` int(10) NOT NULL AUTO_INCREMENT COMMENT '角色ID', AUTO_INCREMENT=10;
+  MODIFY `rID` int(10) NOT NULL AUTO_INCREMENT COMMENT '角色ID', AUTO_INCREMENT=13;
 
 --
 -- 使用表AUTO_INCREMENT `salary`
 --
 ALTER TABLE `salary`
-  MODIFY `sID` int(11) NOT NULL AUTO_INCREMENT COMMENT '标准编号', AUTO_INCREMENT=10;
+  MODIFY `sID` int(11) NOT NULL AUTO_INCREMENT COMMENT '标准编号', AUTO_INCREMENT=13;
 
 --
 -- 使用表AUTO_INCREMENT `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键', AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键', AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
